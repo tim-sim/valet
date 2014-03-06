@@ -1,6 +1,7 @@
 package org.tim.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +13,9 @@ import java.io.IOException;
  */
 @Controller
 public class TestController {
-    @RequestMapping(value = "/home.html")
-    public void home(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.getWriter().print("Hello world!");
+    @RequestMapping(value = "/test")
+    public String test(Model model) throws IOException {
+        model.addAttribute("message", "It works!");
+        return "test";
     }
 }

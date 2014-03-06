@@ -1,0 +1,18 @@
+<html>
+    <body>
+        <div>
+            <table>
+                <thead>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Created</th>
+                </thead>
+                <tr th:each="note : ${notesList}">
+                    <td th:text="${note.title}"/>
+                    <td th:text="${note.content}"/>
+                    <td th:text="${note.created}"/>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
