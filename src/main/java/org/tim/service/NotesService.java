@@ -3,7 +3,9 @@ package org.tim.service;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.tim.dao.NotesDao;
 import org.tim.domain.Note;
 
 import java.util.List;
@@ -11,16 +13,20 @@ import java.util.List;
 /**
  * Created by tim on 3/7/14.
  */
-@Service()
+@Service
 public class NotesService {
+    @Autowired
+    private NotesDao notesDao;
+
     public List<Note> getAllNotes() {
-        return ImmutableList.of(testNote(), testNote(), testNote());
+        return notesDao.getAllNotes();
     }
 
-    private Note testNote() {
-        Note note = new Note();
-        note.setTitle(RandomStringUtils.randomAlphabetic(5));
-        note.setContent(RandomStringUtils.randomAlphabetic(15));
-        return note;
+    public void addNote(Note note) {
+        notesDao.create(note);
+    }
+
+    public void removeNote(long id) {
+        notesDao.delete(id);
     }
 }
