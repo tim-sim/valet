@@ -3,13 +3,14 @@ package org.tim.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.tim.domain.Note;
 import org.tim.service.NotesService;
 
 /**
- * Created by tim on 3/7/14.
+ * @author tim
  */
 @Controller
 @RequestMapping("/notes")
@@ -17,18 +18,18 @@ public class NotesController {
     @Autowired
     private NotesService notesService;
 
-    @RequestMapping("/list")
+    @RequestMapping(value = "/list")
     public String list(Model model) {
         model.addAttribute("notesList", notesService.getAllNotes());
         return "notes";
     }
 
-    @RequestMapping("/add")
-    public String add(Model model) {
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String add(@RequestParam(value = "title") String title, @RequestParam(value = "content") String content) {
         Note note = new Note();
-        note.setTitle(String.valueOf(model.asMap().get("title")));
-        note.setContent(String.valueOf(model.asMap().get("content")));
+        note.setTitle(title);
+        note.setContent(content);
         notesService.addNote(note);
-        return list(model);
+        return "redirect:/notes/list";
     }
 }

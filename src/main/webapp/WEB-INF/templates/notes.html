@@ -1,8 +1,12 @@
 <html>
-    <body>
-        <div>
-            <form id="addNoteForm" action="add">
-                Title <input type="text" id="title" name="title"/>
+<head>
+    <title>Valet</title>
+    <link href="/css/valet.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="content">
+    <form id="addNoteForm" action="add" method="post">
+    Title <input type="text" id="title" name="title"/>
                 Content <input type="text" id="content" name="content"/>
                 <input type="submit"/>
             </form>
@@ -19,5 +23,7 @@
                 </tr>
             </table>
         </div>
-    </body>
+<script src="/js/lib/jquery-2.1.0.js"></script>
+<script src="/js/valet.js"></script>
+</body>
 </html>
