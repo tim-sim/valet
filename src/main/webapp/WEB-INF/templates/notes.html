@@ -22,7 +22,7 @@
             <td th:text="${note.content}"/>
             <td th:text="${note.created}"/>
             <td>
-                <a href="#" th:href="@{/notes/delete?id=${note.id}}" th:text="x"/>
+                <a href="#" th:href="@{/notes/delete(id=${note.id})}" th:text="x"/>
             </td>
         </tr>
     </table>
