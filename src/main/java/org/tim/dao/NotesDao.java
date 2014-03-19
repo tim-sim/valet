@@ -17,8 +17,7 @@ import java.util.List;
  * @author TNasibullin
  */
 @Repository
-public class NotesDao {
-    private static final NoteMapper NOTE_MAPPER = new NoteMapper();
+public class NotesDao implements RowMapper<Note> {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -34,7 +33,7 @@ public class NotesDao {
     }
 
     public List<Note> getAllNotes() {
-        return jdbcTemplate.query("select * from notes", NOTE_MAPPER);
+        return jdbcTemplate.query("select * from notes", this);
     }
 
     public void create(Note note) {
@@ -52,14 +51,13 @@ public class NotesDao {
         return note;
     }
 
-    private static class NoteMapper implements RowMapper<Note> {
-        @Override
-        public Note mapRow(ResultSet resultSet, int i) throws SQLException {
-            Note note = new Note();
-            note.setTitle(resultSet.getString("title"));
-            note.setContent(resultSet.getString("content"));
-            note.setCreated(resultSet.getDate("created"));
-            return note;
-        }
+    @Override
+    public Note mapRow(ResultSet resultSet, int i) throws SQLException {
+        Note note = new Note();
+        note.setId(resultSet.getLong("id"));
+        note.setTitle(resultSet.getString("title"));
+        note.setContent(resultSet.getString("content"));
+        note.setCreated(resultSet.getDate("created"));
+        return note;
     }
 }

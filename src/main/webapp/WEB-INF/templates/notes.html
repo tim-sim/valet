@@ -1,4 +1,10 @@
-<html>
+<!DOCTYPE html>
+
+<!--[if lte IE 8]><html class="lt-ie8"><![endif]-->
+<!--[if IE 9]><html class="ie9"><![endif]-->
+<!--[if !IE]><!-->
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
 <head>
     <title>Valet</title>
     <link href="/css/valet.css" rel="stylesheet"/>
@@ -6,23 +12,21 @@
 <body>
 <div class="content">
     <form id="addNoteForm" action="add" method="post">
-    Title <input type="text" id="title" name="title"/>
-                Content <input type="text" id="content" name="content"/>
-                <input type="submit"/>
-            </form>
-            <table>
-                <thead>
-                    <th>Title</th>
-                    <th>Content</th>
-                    <th>Created</th>
-                </thead>
-                <tr th:each="note : ${notesList}">
-                    <td th:text="${note.title}"/>
-                    <td th:text="${note.content}"/>
-                    <td th:text="${note.created}"/>
-                </tr>
-            </table>
-        </div>
+        <input type="text" id="title" name="title" placeholder="Title"/>
+        <input type="text" id="content" name="content" placeholder="Content"/>
+        <input type="submit"/>
+    </form>
+    <table th:if="${!#lists.isEmpty(notesList)}">
+        <tr th:each="note : ${notesList}">
+            <td th:text="${note.title}"/>
+            <td th:text="${note.content}"/>
+            <td th:text="${note.created}"/>
+            <td>
+                <a href="#" th:href="@{/notes/delete?id=${note.id}}" th:text="x"/>
+            </td>
+        </tr>
+    </table>
+</div>
 <script src="/js/lib/jquery-2.1.0.js"></script>
 <script src="/js/valet.js"></script>
 </body>

@@ -6,9 +6,18 @@ import java.util.Date;
  * Created by tim on 3/7/14.
  */
 public class Note {
+    private long id;
     private String title;
     private String content;
     private Date created = new Date();
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;

@@ -11,7 +11,7 @@ import org.tim.domain.Note;
 import java.util.List;
 
 /**
- * Created by tim on 3/7/14.
+ * @author tim
  */
 @Service
 public class NotesService {

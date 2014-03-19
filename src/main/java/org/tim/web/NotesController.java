@@ -32,4 +32,10 @@ public class NotesController {
         notesService.addNote(note);
         return "redirect:/notes/list";
     }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String delete(@RequestParam(value = "id") long id) {
+        notesService.removeNote(id);
+        return "redirect:/notes/list";
+    }
 }
