@@ -1,5 +1,8 @@
 package org.tim.web;
 
+import com.google.common.base.Function;
+import com.google.common.base.Splitter;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tim.domain.Note;
+import org.tim.domain.Tag;
 import org.tim.service.NotesService;
 
 /**
@@ -15,6 +19,7 @@ import org.tim.service.NotesService;
 @Controller
 @RequestMapping("/notes")
 public class NotesController {
+    private final static Splitter TAG_SPLITTER = Splitter.on(",").trimResults().omitEmptyStrings();
     @Autowired
     private NotesService notesService;
 
@@ -25,10 +30,14 @@ public class NotesController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(@RequestParam(value = "title") String title, @RequestParam(value = "content") String content) {
+    public String add(@RequestParam(value = "tagList") String tagList, @RequestParam(value = "content") String content) {
         Note note = new Note();
-        note.setTitle(title);
         note.setContent(content);
+        note.setTags(Lists.transform(TAG_SPLITTER.splitToList(tagList), new Function<String, Tag>() {
+            public Tag apply(String tagName) {
+                return new Tag(tagName);
+            }
+        }));
         notesService.addNote(note);
         return "redirect:/notes/list";
     }

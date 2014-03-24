@@ -11,5 +11,7 @@
             http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:annotation-config/>
-    <context:component-scan base-package="org.tim"/>
+    <context:component-scan base-package="org.tim.dao"/>
+    <context:component-scan base-package="org.tim.service"/>
+    <context:component-scan base-package="org.tim.service"/>
 </beans>

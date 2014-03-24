@@ -1,15 +1,18 @@
 package org.tim.domain;
 
+import com.google.common.collect.Lists;
+
 import java.util.Date;
+import java.util.List;
 
 /**
- * Created by tim on 3/7/14.
+ * @author tim
  */
 public class Note {
     private long id;
-    private String title;
     private String content;
     private Date created = new Date();
+    private List<Tag> tags = Lists.newArrayList();
 
     public long getId() {
         return id;
@@ -17,14 +20,6 @@ public class Note {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getContent() {
@@ -41,5 +36,13 @@ public class Note {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 }

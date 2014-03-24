@@ -12,14 +12,18 @@
 <body>
 <div class="content">
     <form id="addNoteForm" action="add" method="post">
-        <input type="text" id="title" name="title" placeholder="Title"/>
+        <input type="text" id="tagList" name="tagList" placeholder="Tags"/>
         <input type="text" id="content" name="content" placeholder="Content"/>
         <input type="submit"/>
     </form>
     <table th:if="${!#lists.isEmpty(notesList)}">
         <tr th:each="note : ${notesList}">
-            <td th:text="${note.title}"/>
             <td th:text="${note.content}"/>
+            <td>
+               <span th:each="tag : ${note.tags}" th:remove="tag">
+                   <span class="tag" th:text="${tag.name}"/>
+               </span>
+            </td>
             <td th:text="${note.created}"/>
             <td>
                 <a href="#" th:href="@{/notes/delete(id=${note.id})}" th:text="x"/>

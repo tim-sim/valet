@@ -1,12 +1,12 @@
 package org.tim.service;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.tim.dao.NotesDao;
+import org.tim.dao.NotesDAO;
+import org.tim.dao.NotesTagsDAO;
+import org.tim.dao.TagsDAO;
 import org.tim.domain.Note;
+import org.tim.domain.Tag;
 
 import java.util.List;
 
@@ -16,17 +16,38 @@ import java.util.List;
 @Service
 public class NotesService {
     @Autowired
-    private NotesDao notesDao;
+    private NotesDAO notesDAO;
+    @Autowired
+    private TagsDAO tagsDAO;
+    @Autowired
+    private NotesTagsDAO notesTagsDAO;
 
     public List<Note> getAllNotes() {
-        return notesDao.getAllNotes();
+        List<Note> notes = notesDAO.findAllNotes();
+        for (Note note : notes) {
+            note.setTags(tagsDAO.findByNote(note.getId()));
+        }
+        return notes;
     }
 
+/*
+    public Note getById(long id) {
+        Note note = notesDAO.findById(id);
+        note.setTags(tagsDAO.findByNote(note.getId()));
+        return note;
+    }
+*/
+
     public void addNote(Note note) {
-        notesDao.create(note);
+        notesDAO.create(note);
+        for (Tag tag : note.getTags()) {
+            tagsDAO.merge(tag);
+            notesTagsDAO.link(note, tag);
+        }
     }
 
     public void removeNote(long id) {
-        notesDao.delete(id);
+        notesTagsDAO.unlinkNote(id);
+        notesDAO.delete(id);
     }
 }
