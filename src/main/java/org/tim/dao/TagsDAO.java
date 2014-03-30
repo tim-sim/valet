@@ -48,8 +48,8 @@ public class TagsDAO {
         jdbcTemplate.update("delete from TAGS where id = ?", id);
     }
 
-    public void deleteOrphan(Tag tag) {
-        // todo: implement
+    public void deleteOrphan(long tagId) {
+        jdbcTemplate.update("delete from TAGS t where t.ID = ? and not exists (select 1 from NOTES_TAGS nt where nt.TAG_ID = t.ID)", tagId);
     }
 
 

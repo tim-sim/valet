@@ -30,13 +30,12 @@ public class NotesService {
         return populateTags(notesDAO.findByTagId(tagId));
     }
 
-/*
+
     public Note getById(long id) {
         Note note = notesDAO.findById(id);
         note.setTags(tagsDAO.findByNote(note.getId()));
         return note;
     }
-*/
 
     public void addNote(Note note) {
         notesDAO.create(note);
@@ -46,9 +45,12 @@ public class NotesService {
         }
     }
 
-    public void removeNote(long id) {
-        notesTagsDAO.unlinkNote(id);
-        notesDAO.delete(id);
+    public void removeNote(Note note) {
+        notesTagsDAO.unlinkNote(note.getId());
+        notesDAO.delete(note.getId());
+        for (Tag tag : note.getTags()) {
+            tagsDAO.deleteOrphan(tag.getId());
+        }
     }
 
     public List<Tag> getAllTags() {

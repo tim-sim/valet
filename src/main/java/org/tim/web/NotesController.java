@@ -52,7 +52,10 @@ public class NotesController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(@RequestParam(value = "id") long id) {
-        notesService.removeNote(id);
+        Note note = notesService.getById(id);
+        if (note != null) {
+            notesService.removeNote(note);
+        }
         return "redirect:/notes/";
     }
 }

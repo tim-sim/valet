@@ -14,6 +14,11 @@ body {
     margin: 5px;
 }
 
+.note {
+    padding: 0;
+    margin: 15px 5px;
+}
+
 .column {
     min-height: 100px;
     padding: 10px;

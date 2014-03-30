@@ -75,4 +75,9 @@ public class NotesDAO {
             return note;
         }
     };
+
+    public Note findById(long id) {
+        List<Note> notes = jdbcTemplate.query("select * from NOTES where ID = ? limit 1", NOTE_MAPPER, id);
+        return notes != null ? notes.get(0) : null;
+    }
 }
