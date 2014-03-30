@@ -62,6 +62,10 @@ public class TagsDAO {
         }
     }
 
+    public List<Tag> finAll() {
+        return jdbcTemplate.query("select * from TAGS", TAG_MAPPER);
+    }
+
     public Tag findByName(String tagName) {
         List<Tag> tags = jdbcTemplate.query("select * from TAGS where NAME = ?", TAG_MAPPER, tagName);
         return tags.isEmpty() ? null : tags.get(0);
@@ -96,5 +100,4 @@ public class TagsDAO {
             return usages;
         }
     };
-
 }

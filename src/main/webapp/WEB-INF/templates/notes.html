@@ -17,32 +17,30 @@
 
     <div class="add-form column bordered">
         <form id="addNoteForm" action="add" method="post">
-            <input id="tagList" name="tagList" class="input bordered" type="text" placeholder="Tags"/>
-            <textarea id="content" name="content" class="input bordered" rows="2" cols="19"
+            <input id="noteTags" name="noteTags" class="input bordered" type="text" placeholder="Tags"/>
+            <textarea id="noteContent" name="noteContent" class="input bordered" rows="2" cols="19"
                       placeholder="Content"></textarea>
             <input class="input bordered" type="submit" value="Add"/>
         </form>
     </div>
     <div class="note-list column bordered">
-        <div class="block">
-            <span class="very-compact bordered">Note content</span>
-            <span class="very-compact bordered">tag1</span>
-            <span class="very-compact bordered">tag2</span>
-        </div>
-        <div th:remove="tag" th:if="${!#lists.isEmpty(notesList)}" th:each="note : ${notesList}">
+        <div th:remove="tag" th:if="${!#lists.isEmpty(notes)}" th:each="note : ${notes}">
             <div class="block">
                 <span class="very-compact" th:text="${note.content}">Note content</span>
                 <span th:remove="tag" th:if="${!#lists.isEmpty(note.tags)}" th:each="tag : ${note.tags}">
                     <span class="very-compact bordered">
-                        <a href="#" th:text="${tag.name}">Some tag</a>
+                        <a href="#" th:href="@{/notes/tag(id=${tag.id})}" th:text="${tag.name}">Some tag</a>
                     </span>
                 </span>
             </div>
         </div>
     </div>
     <div class="tag-list column bordered">
-        <div class="compact"><a href="#">Some tag 1</a></div>
-        <div class="compact"><a href="#">Some tag 2</a></div>
+        <div th:remove="tag" th:if="${!#lists.isEmpty(tags)}" th:each="tag : ${tags}">
+            <div class="compact">
+                <a href="#" th:href="@{/notes/tag(id=${tag.id})}" th:text="${tag.name}">Some tag</a>
+            </div>
+        </div>
     </div>
     <div class="footer block bordered">Footer</div>
 </div>

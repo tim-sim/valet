@@ -23,28 +23,36 @@ public class NotesController {
     @Autowired
     private NotesService notesService;
 
-    @RequestMapping(value = "/list")
+    @RequestMapping(value = "/")
     public String list(Model model) {
-        model.addAttribute("notesList", notesService.getAllNotes());
+        model.addAttribute("notes", notesService.getAllNotes());
+        model.addAttribute("tags", notesService.getAllTags());
+        return "notes";
+    }
+
+    @RequestMapping(value = "/tag")
+    public String getByTag(@RequestParam long id, Model model) {
+        model.addAttribute("notes", notesService.getNotesByTag(id));
+        model.addAttribute("tags", notesService.getAllTags());
         return "notes";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(@RequestParam(value = "tagList") String tagList, @RequestParam(value = "content") String content) {
+    public String add(@RequestParam(value = "noteTags") String noteTags, @RequestParam(value = "noteContent") String noteContent) {
         Note note = new Note();
-        note.setContent(content);
-        note.setTags(Lists.transform(TAG_SPLITTER.splitToList(tagList), new Function<String, Tag>() {
+        note.setContent(noteContent);
+        note.setTags(Lists.transform(TAG_SPLITTER.splitToList(noteTags), new Function<String, Tag>() {
             public Tag apply(String tagName) {
                 return new Tag(tagName);
             }
         }));
         notesService.addNote(note);
-        return "redirect:/notes/list";
+        return "redirect:/notes/";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(@RequestParam(value = "id") long id) {
         notesService.removeNote(id);
-        return "redirect:/notes/list";
+        return "redirect:/notes/";
     }
 }

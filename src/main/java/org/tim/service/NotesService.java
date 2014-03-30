@@ -23,11 +23,11 @@ public class NotesService {
     private NotesTagsDAO notesTagsDAO;
 
     public List<Note> getAllNotes() {
-        List<Note> notes = notesDAO.findAllNotes();
-        for (Note note : notes) {
-            note.setTags(tagsDAO.findByNote(note.getId()));
-        }
-        return notes;
+        return populateTags(notesDAO.findAll());
+    }
+
+    public List<Note> getNotesByTag(long tagId) {
+        return populateTags(notesDAO.findByTagId(tagId));
     }
 
 /*
@@ -49,5 +49,16 @@ public class NotesService {
     public void removeNote(long id) {
         notesTagsDAO.unlinkNote(id);
         notesDAO.delete(id);
+    }
+
+    public List<Tag> getAllTags() {
+        return tagsDAO.finAll();
+    }
+
+    private List<Note> populateTags(List<Note> notes) {
+        for (Note note : notes) {
+            note.setTags(tagsDAO.findByNote(note.getId()));
+        }
+        return notes;
     }
 }

@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 import org.tim.domain.Note;
-import org.tim.domain.Tag;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -19,20 +18,33 @@ import java.util.List;
 @Repository
 public class NotesDAO {
     private JdbcTemplate jdbcTemplate;
-    @Autowired
-    private TagsDAO tagsDAO;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public List<Note> findAllNotes() {
+    public List<Note> findAll() {
         return jdbcTemplate.query("select * from notes", NOTE_MAPPER);
     }
 
-    public List<Note> findByTag(Long tagId) {
-        return jdbcTemplate.query("select n.* from NOTES n, NOTES_TAGS nt where nt.NOTE_ID = n.ID and nt.TAG_ID = ?", NOTE_MAPPER, tagId);
+    public List<Note> findByTagId(Long tagId) {
+        return jdbcTemplate.query(
+                "select n.* from NOTES n, NOTES_TAGS nt " +
+                        "where n.ID = nt.NOTE_ID " +
+                        "and nt.TAG_ID = ?",
+                NOTE_MAPPER, tagId
+        );
+    }
+
+    public List<Note> findByTagName(String tagName) {
+        return jdbcTemplate.query(
+                "select n.* from NOTES n, NOTES_TAGS nt, TAGS t " +
+                        "where n.ID = nt.NOTE_ID " +
+                        "and nt.TAG_ID = t.ID " +
+                        "and t.NAME = ?",
+                NOTE_MAPPER, tagName
+        );
     }
 
     public void create(final Note note) {
