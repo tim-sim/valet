@@ -26,10 +26,13 @@
     <div class="note-list column bordered">
         <div th:remove="tag" th:if="${!#lists.isEmpty(notes)}" th:each="note : ${notes}">
             <div class="block">
-                <span class="very-compact" th:text="${note.content}">Note content</span>
+                <span class="compact"><a class="without-underline" href="#" th:href="@{/notes/delete(id=${note.id})}">
+                    &#10006;</a></span>
+                <span class="compact" th:text="${note.content}">Note content</span>
                 <span th:remove="tag" th:if="${!#lists.isEmpty(note.tags)}" th:each="tag : ${note.tags}">
-                    <span class="very-compact bordered">
-                        <a href="#" th:href="@{/notes/tag(id=${tag.id})}" th:text="${tag.name}">Some tag</a>
+                    <span class="compact bordered">
+                        <a class="without-underline" href="#" th:href="@{/notes/tag(id=${tag.id})}"
+                           th:text="${tag.name}">Some tag</a>
                     </span>
                 </span>
             </div>

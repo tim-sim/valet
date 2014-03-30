@@ -10,12 +10,7 @@ body {
 }
 
 .compact {
-    padding: 5px;
-    margin: 5px;
-}
-
-.very-compact {
-    padding: 1px;
+    padding: 1px 3px;
     margin: 5px;
 }
 
@@ -68,6 +63,10 @@ body {
     margin: 10px 0px;
 }
 
-li {
-    list-style-type: none;
+.right {
+    float: right;
+}
+
+.without-underline {
+    text-decoration: none;
 }
