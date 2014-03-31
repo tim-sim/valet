@@ -13,39 +13,39 @@
 </head>
 <body>
 <div class="content bordered">
-    <div class="header block bordered">Header</div>
+    <div class="header bordered">Header</div>
 
-    <div class="add-form column bordered">
-        <form id="addNoteForm" action="add" method="post">
-            <input id="noteTags" name="noteTags" class="input bordered" type="text" placeholder="Tags"/>
-            <textarea id="noteContent" name="noteContent" class="input bordered" rows="2" cols="19"
-                      placeholder="Content"></textarea>
-            <input class="input bordered" type="submit" value="Add"/>
-        </form>
-    </div>
-    <div class="note-list column bordered">
-        <div th:remove="tag" th:if="${!#lists.isEmpty(notes)}" th:each="note : ${notes}">
-            <div class="note">
-                <span class="compact"><a class="without-underline" href="#" th:href="@{/notes/delete(id=${note.id})}">
-                    &#10006;</a></span>
-                <span class="compact" th:text="${note.content}">Note content</span>
-                <span th:remove="tag" th:if="${!#lists.isEmpty(note.tags)}" th:each="tag : ${note.tags}">
-                    <span class="compact bordered">
-                        <a class="without-underline" href="#" th:href="@{/notes/tag(id=${tag.id})}"
-                           th:text="${tag.name}">Some tag</a>
+    <div class="clearfix clean">
+        <div class="add-form bordered">
+            <form id="addNoteForm" action="add" method="post">
+                <input id="noteTags" name="noteTags" class="input bordered" type="text" placeholder="Tags"/>
+                <input id="noteContent" name="noteContent" class="input bordered" type="text" placeholder="Content"/>
+            </form>
+        </div>
+        <div class="note-list bordered">
+            <div th:remove="tag" th:if="${!#lists.isEmpty(notes)}" th:each="note : ${notes}">
+                <div class="note">
+                    <span class="compact"><a class="without-underline" href="#" th:href="@{/notes/delete(id=${note.id})}">
+                        &#10006;</a></span>
+                    <span class="compact" th:text="${note.content}">Note content</span>
+                    <span th:remove="tag" th:if="${!#lists.isEmpty(note.tags)}" th:each="tag : ${note.tags}">
+                        <span class="compact bordered">
+                            <a class="without-underline" href="#" th:href="@{/notes/tag(id=${tag.id})}"
+                               th:text="${tag.name}">Some tag</a>
+                        </span>
                     </span>
-                </span>
+                </div>
+            </div>
+        </div>
+        <div class="tag-list bordered">
+            <div th:remove="tag" th:if="${!#lists.isEmpty(tags)}" th:each="tag : ${tags}">
+                <div class="compact">
+                    <a href="#" th:href="@{/notes/tag(id=${tag.id})}" th:text="${tag.name}">Some tag</a>
+                </div>
             </div>
         </div>
     </div>
-    <div class="tag-list column bordered">
-        <div th:remove="tag" th:if="${!#lists.isEmpty(tags)}" th:each="tag : ${tags}">
-            <div class="compact">
-                <a href="#" th:href="@{/notes/tag(id=${tag.id})}" th:text="${tag.name}">Some tag</a>
-            </div>
-        </div>
-    </div>
-    <div class="footer block bordered">Footer</div>
+    <div class="footer bordered">Footer</div>
 </div>
 <script src="/js/lib/jquery-2.1.0.js"></script>
 <script src="/js/valet.js"></script>

@@ -1,12 +1,16 @@
 body {
-    font-family: "sans-serif";
+    font-family: "Arial";
     font-size: 0.8em;
-    margin: 20px;
 }
 
-.block {
-    padding: 10px;
+div {
     margin: 10px;
+    padding: 0;
+}
+
+.clean {
+    padding: 0;
+    margin: 0;
 }
 
 .compact {
@@ -15,14 +19,7 @@ body {
 }
 
 .note {
-    padding: 0;
     margin: 15px 5px;
-}
-
-.column {
-    min-height: 100px;
-    padding: 10px;
-    margin: 10px;
 }
 
 .bordered {
@@ -37,35 +34,38 @@ body {
 }
 
 .header {
-
+    padding: 10px;
+    margin-bottom: 0;
 }
 
 .add-form {
-    width: 20%;
     float: left;
+    width: 200px;
+    margin-right: 0;
 }
 
 .note-list {
-    width: 48%;
     float: left;
-    margin-left: 0;
+    width: 454px;
     margin-right: 0;
 }
 
 .tag-list {
-    width: 20%;
     float: left;
+    width: 200px;
 }
 
 .footer {
-    clear: both;
+    padding: 10px;
+    margin-top: 0;
 }
 
 .add-form .input {
     display: block;
     outline: none;
+    width: 170px;
     padding: 5px;
-    margin: 10px 0px;
+    margin: 10px;
 }
 
 .right {
@@ -74,4 +74,10 @@ body {
 
 .without-underline {
     text-decoration: none;
+}
+
+.clearfix:after {
+    content: '';
+    display: table;
+    clear: both;
 }
