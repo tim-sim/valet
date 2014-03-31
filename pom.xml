@@ -56,6 +56,35 @@
             <version>2.5</version>
         </dependency>
     </dependencies>
+    <profiles>
+        <profile>
+            <id>updateDB</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.liquibase</groupId>
+                        <artifactId>liquibase-maven-plugin</artifactId>
+                        <version>3.1.1</version>
+                        <executions>
+                            <execution>
+                                <phase>process-resources</phase>
+                                <configuration>
+                                    <changeLogFile>src/main/resources/db.changelog.xml</changeLogFile>
+                                    <driver>org.h2.Driver</driver>
+                                    <url>jdbc:h2:~/valet</url>
+                                    <username>valet</username>
+                                    <password>valet</password>
+                                </configuration>
+                                <goals>
+                                    <goal>update</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
     <build>
         <finalName>valet</finalName>
         <plugins>
@@ -77,26 +106,6 @@
                     <port>8000</port>
                     <path>/</path>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.liquibase</groupId>
-                <artifactId>liquibase-maven-plugin</artifactId>
-                <version>3.1.1</version>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <configuration>
-                            <changeLogFile>src/main/resources/db.changelog.xml</changeLogFile>
-                            <driver>org.h2.Driver</driver>
-                            <url>jdbc:h2:~/valet</url>
-                            <username>valet</username>
-                            <password>valet</password>
-                        </configuration>
-                        <goals>
-                            <goal>update</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
