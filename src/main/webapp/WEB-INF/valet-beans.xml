@@ -13,5 +13,5 @@
     <context:annotation-config/>
     <context:component-scan base-package="org.tim.dao"/>
     <context:component-scan base-package="org.tim.service"/>
-    <context:component-scan base-package="org.tim.service"/>
+    <context:component-scan base-package="org.tim.web"/>
 </beans>
