@@ -3,9 +3,14 @@ body {
     font-size: 0.8em;
 }
 
-div {
+div, p {
     margin: 10px;
     padding: 0;
+}
+
+input {
+    margin: 10px;
+    padding: 5px;
 }
 
 .clean {
@@ -40,8 +45,14 @@ div {
 
 .add-form {
     float: left;
-    width: 200px;
+    width: 250px;
     margin-right: 0;
+}
+
+.add-form input {
+    display: block;
+    outline: none;
+    width: 220px;
 }
 
 .note-list {
@@ -51,23 +62,22 @@ div {
     margin-right: 0;
 }
 
+.note-list input {
+    display: block;
+    outline: none;
+    width: 424px;
+
+}
+
 .tag-list {
     float: left;
     min-height: 86px;
-    width: 200px;
+    width: 150px;
 }
 
 .footer {
     padding: 10px;
     margin-top: 0;
-}
-
-.add-form .input {
-    display: block;
-    outline: none;
-    width: 170px;
-    padding: 5px;
-    margin: 10px;
 }
 
 .right {

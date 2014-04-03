@@ -18,11 +18,13 @@
     <div class="clearfix clean">
         <div class="add-form bordered">
             <form id="addNoteForm" action="add" method="post" accept-charset="UTF-8">
-                <input id="noteTags" name="noteTags" class="input bordered" type="text" placeholder="Tags"/>
-                <input id="noteContent" name="noteContent" class="input bordered" type="text" placeholder="Content"/>
+                <input id="noteTags" name="noteTags" class="bordered" type="text" placeholder="Tags"/>
+                <input id="noteContent" name="noteContent" class="bordered" type="text" placeholder="Content"/>
             </form>
         </div>
         <div class="note-list bordered">
+            <input id="quickSearch" name="quickSearch" class="bordered" type="text" placeholder="Search"/>
+
             <div th:remove="tag" th:if="${!#lists.isEmpty(notes)}" th:each="note : ${notes}">
                 <div class="note">
                     <span class="compact"><a class="without-underline" href="#" th:href="@{/notes/delete(id=${note.id})}">
