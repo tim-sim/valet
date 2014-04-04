@@ -3,7 +3,7 @@ body {
     font-size: 0.8em;
 }
 
-div, p {
+div, p, h1, h2, h3 {
     margin: 10px;
     padding: 0;
 }
@@ -11,6 +11,11 @@ div, p {
 input {
     margin: 10px;
     padding: 5px;
+}
+
+/* Main page */
+.content {
+    margin-top: 50px;
 }
 
 .clean {
@@ -39,7 +44,7 @@ input {
 }
 
 .header {
-    padding: 10px;
+    padding: 0;
     margin-bottom: 0;
 }
 
@@ -92,4 +97,28 @@ input {
     content: '';
     display: table;
     clear: both;
+}
+
+.menu-item {
+    float: left;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 10px;
+    width: 132px;
+    border-right: solid 1px gray;
+    text-align: center;
+}
+
+.menu-item:last-child {
+    border: none;
+}
+
+/* Login page */
+
+.login-form {
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    padding: 20px;
 }

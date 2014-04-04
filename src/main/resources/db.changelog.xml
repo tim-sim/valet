@@ -35,9 +35,28 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addForeignKeyConstraint constraintName="NOTE_ID_CONSTRAINT" baseTableName="NOTES_TAGS" baseColumnNames="NOTE_ID"
+        <addForeignKeyConstraint constraintName="NOTE_ID_CONSTRAINT" baseTableName="NOTES_TAGS"
+                                 baseColumnNames="NOTE_ID"
                                  referencedTableName="NOTES" referencedColumnNames="ID"/>
         <addForeignKeyConstraint constraintName="TAG_ID_CONSTRAINT" baseTableName="NOTES_TAGS" baseColumnNames="TAG_ID"
                                  referencedTableName="TAGS" referencedColumnNames="ID"/>
+    </changeSet>
+
+    <changeSet id="3" author="tim">
+        <createTable tableName="USERS">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="FIRSTNAME" type="varchar(255)"/>
+            <column name="SECONDNAME" type="varchar(255"/>
+            <column name="EMAIL" type="varchar(255)"/>
+            <column name="LOGIN" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="PASSWORD" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED" type="date"/>
+        </createTable>
     </changeSet>
 </databaseChangeLog>
