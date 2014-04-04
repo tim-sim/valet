@@ -17,28 +17,35 @@ import org.tim.service.NotesService;
  * @author tim
  */
 @Controller
-@RequestMapping("/notes")
 public class NotesController {
     private final static Splitter TAG_SPLITTER = Splitter.on(",").trimResults().omitEmptyStrings();
     @Autowired
     private NotesService notesService;
 
     @RequestMapping(value = "/")
-    public String list(Model model) {
+    public String index() {
+        return "redirect:/notes";
+    }
+    /*
+     * Notes view
+     */
+
+    @RequestMapping(value = "/notes")
+    public String notes(Model model) {
         model.addAttribute("notes", notesService.getAllNotes());
         model.addAttribute("tags", notesService.getAllTags());
         return "notes";
     }
 
-    @RequestMapping(value = "/tag")
-    public String getByTag(@RequestParam long id, Model model) {
+    @RequestMapping(value = "/notes/tag")
+    public String noteByTag(@RequestParam long id, Model model) {
         model.addAttribute("notes", notesService.getNotesByTag(id));
         model.addAttribute("tags", notesService.getAllTags());
         return "notes";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(@RequestParam(value = "noteTags") String noteTags, @RequestParam(value = "noteContent") String noteContent) {
+    @RequestMapping(value = "/notes/add", method = RequestMethod.POST)
+    public String addNote(@RequestParam(value = "noteTags") String noteTags, @RequestParam(value = "noteContent") String noteContent) {
         Note note = new Note();
         note.setContent(noteContent);
         note.setTags(Lists.transform(TAG_SPLITTER.splitToList(noteTags), new Function<String, Tag>() {
@@ -50,12 +57,48 @@ public class NotesController {
         return "redirect:/notes/";
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String delete(@RequestParam(value = "id") long id) {
+    @RequestMapping(value = "/notes/delete", method = RequestMethod.GET)
+    public String deleteNote(@RequestParam(value = "id") long id) {
         Note note = notesService.getById(id);
         if (note != null) {
             notesService.removeNote(note);
         }
         return "redirect:/notes/";
+    }
+
+    /*
+     * Contacts view
+     */
+
+    @RequestMapping(value = "/contacts")
+    public String contacts(Model model) {
+        return "contacts";
+    }
+
+    /*
+     * Lists view
+     */
+
+    @RequestMapping(value = "/lists")
+    public String lists(Model model) {
+        return "lists";
+    }
+
+    /*
+     * Reminders view
+     */
+
+    @RequestMapping(value = "/reminders")
+    public String reminders(Model model) {
+        return "reminders";
+    }
+
+    /*
+     * Tasks view
+     */
+
+    @RequestMapping(value = "/tasks")
+    public String tasks(Model model) {
+        return "tasks";
     }
 }
