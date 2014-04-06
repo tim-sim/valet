@@ -7,6 +7,7 @@ import org.tim.dao.NotesTagsDAO;
 import org.tim.dao.TagsDAO;
 import org.tim.domain.Note;
 import org.tim.domain.Tag;
+import org.tim.service.tag.TagProcessingManager;
 
 import java.util.List;
 
@@ -21,6 +22,8 @@ public class NotesService {
     private TagsDAO tagsDAO;
     @Autowired
     private NotesTagsDAO notesTagsDAO;
+    @Autowired
+    private TagProcessingManager tagManager;
 
     public List<Note> getAllNotes() {
         return populateTags(notesDAO.findAll());
@@ -43,6 +46,7 @@ public class NotesService {
             tagsDAO.merge(tag);
             notesTagsDAO.link(note, tag);
         }
+        tagManager.processNote(note);
     }
 
     public void removeNote(Note note) {

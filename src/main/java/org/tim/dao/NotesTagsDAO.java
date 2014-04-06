@@ -1,12 +1,8 @@
 package org.tim.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.tim.domain.Note;
 import org.tim.domain.Tag;
-
-import javax.sql.DataSource;
 
 /**
  * @author tim

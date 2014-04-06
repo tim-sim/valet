@@ -19,6 +19,18 @@ import java.sql.SQLException;
  */
 @Repository
 public class UsersDAO {
+    private static RowMapper<User> USER_MAPPER = new RowMapper<User>() {
+        @Override
+        public User mapRow(ResultSet resultSet, int i) throws SQLException {
+            User user = new User();
+            user.setUsername(resultSet.getString("username"));
+            user.setPassword(resultSet.getString("password"));
+            user.setFirstName(resultSet.getString("firstName"));
+            user.setSecondName(resultSet.getString("secondName"));
+            user.setEmail(resultSet.getString("email"));
+            return user;
+        }
+    };
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -51,17 +63,4 @@ public class UsersDAO {
     public void delete(long userId) {
 
     }
-
-    private static RowMapper<User> USER_MAPPER = new RowMapper<User>() {
-        @Override
-        public User mapRow(ResultSet resultSet, int i) throws SQLException {
-            User user = new User();
-            user.setUsername(resultSet.getString("username"));
-            user.setPassword(resultSet.getString("password"));
-            user.setFirstName(resultSet.getString("firstName"));
-            user.setSecondName(resultSet.getString("secondName"));
-            user.setEmail(resultSet.getString("email"));
-            return user;
-        }
-    };
 }

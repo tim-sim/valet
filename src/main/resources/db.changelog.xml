@@ -59,4 +59,17 @@
             <column name="CREATED" type="date"/>
         </createTable>
     </changeSet>
+
+    <changeSet id="4" author="tim">
+        <createTable tableName="ACCOUNTS">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="BANK" type="varchar(255)"/>
+            <column name="AMOUNT" type="int"/>
+            <column name="PERCENT" type="int"/>
+            <column name="EXPIRE" type="date"/>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>

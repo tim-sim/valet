@@ -24,6 +24,26 @@ import java.util.Map;
  */
 @Repository
 public class TagsDAO {
+    private static RowMapper<Tag> TAG_MAPPER = new RowMapper<Tag>() {
+        @Override
+        public Tag mapRow(ResultSet resultSet, int i) throws SQLException {
+            Tag tag = new Tag();
+            tag.setId(resultSet.getLong("id"));
+            tag.setName(resultSet.getString("name"));
+            return tag;
+        }
+    };
+    private static ResultSetExtractor<Map<Tag, Long>> HITS_MAPPER = new ResultSetExtractor<Map<Tag, Long>>() {
+        @Override
+        public Map<Tag, Long> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+            Map<Tag, Long> usages = Maps.newHashMap();
+            while (resultSet.next()) {
+                Tag tag = TAG_MAPPER.mapRow(resultSet, 0);
+                usages.put(tag, resultSet.getLong(2));
+            }
+            return usages;
+        }
+    };
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -52,7 +72,6 @@ public class TagsDAO {
         jdbcTemplate.update("delete from TAGS t where t.ID = ? and not exists (select 1 from NOTES_TAGS nt where nt.TAG_ID = t.ID)", tagId);
     }
 
-
     public void merge(Tag tag) {
         Tag existent = findByName(tag.getName());
         if (existent == null) {
@@ -78,26 +97,4 @@ public class TagsDAO {
     public Map<Tag, Long> collectUsages() {
         return jdbcTemplate.query("select t.*, count(nt.NOTE_ID) from TAG t, NOTES_TAGS nt where nt.TAG_ID = t.ID group by nt.TAG_ID", HITS_MAPPER);
     }
-
-    private static RowMapper<Tag> TAG_MAPPER = new RowMapper<Tag>() {
-        @Override
-        public Tag mapRow(ResultSet resultSet, int i) throws SQLException {
-            Tag tag = new Tag();
-            tag.setId(resultSet.getLong("id"));
-            tag.setName(resultSet.getString("name"));
-            return tag;
-        }
-    };
-
-    private static ResultSetExtractor<Map<Tag, Long>> HITS_MAPPER = new ResultSetExtractor<Map<Tag, Long>>() {
-        @Override
-        public Map<Tag, Long> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-            Map<Tag, Long> usages = Maps.newHashMap();
-            while (resultSet.next()) {
-                Tag tag = TAG_MAPPER.mapRow(resultSet, 0);
-                usages.put(tag, resultSet.getLong(2));
-            }
-            return usages;
-        }
-    };
 }

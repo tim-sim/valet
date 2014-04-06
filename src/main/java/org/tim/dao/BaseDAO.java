@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 /**
  * @author tim
  */
-public class BaseDAO {
+public abstract class BaseDAO {
     protected JdbcTemplate jdbcTemplate;
 
     @Autowired

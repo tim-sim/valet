@@ -17,6 +17,16 @@ import java.util.List;
  */
 @Repository
 public class NotesDAO {
+    private static RowMapper<Note> NOTE_MAPPER = new RowMapper<Note>() {
+        @Override
+        public Note mapRow(ResultSet resultSet, int i) throws SQLException {
+            Note note = new Note();
+            note.setId(resultSet.getLong("id"));
+            note.setContent(resultSet.getString("content"));
+            note.setCreated(resultSet.getDate("created"));
+            return note;
+        }
+    };
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -64,17 +74,6 @@ public class NotesDAO {
     public void delete(long id) {
         jdbcTemplate.update("delete from notes where id = ?", id);
     }
-
-    private static RowMapper<Note> NOTE_MAPPER = new RowMapper<Note>() {
-        @Override
-        public Note mapRow(ResultSet resultSet, int i) throws SQLException {
-            Note note = new Note();
-            note.setId(resultSet.getLong("id"));
-            note.setContent(resultSet.getString("content"));
-            note.setCreated(resultSet.getDate("created"));
-            return note;
-        }
-    };
 
     public Note findById(long id) {
         List<Note> notes = jdbcTemplate.query("select * from NOTES where ID = ? limit 1", NOTE_MAPPER, id);
