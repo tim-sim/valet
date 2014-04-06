@@ -52,7 +52,7 @@ public class NotesDAO {
         jdbcTemplate.update(new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                PreparedStatement statement = connection.prepareStatement("insert into notes (content, created) values (?, ?)");
+                PreparedStatement statement = connection.prepareStatement("insert into NOTES (CONTENT, CREATED) values (?, ?)");
                 statement.setString(1, note.getContent());
                 statement.setDate(2, new Date(note.getCreated().getTime()));
                 return statement;

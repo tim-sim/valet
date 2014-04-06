@@ -50,7 +50,7 @@
             <column name="FIRSTNAME" type="varchar(255)"/>
             <column name="SECONDNAME" type="varchar(255"/>
             <column name="EMAIL" type="varchar(255)"/>
-            <column name="LOGIN" type="varchar(255)">
+            <column name="USERNAME" type="varchar(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="PASSWORD" type="varchar(255)">

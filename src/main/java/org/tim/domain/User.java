@@ -17,6 +17,7 @@ public class User {
     private String password;
 
     private Date created;
+    private long id;
 
     public String getSecondName() {
         return secondName;
@@ -64,5 +65,13 @@ public class User {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
     }
 }
