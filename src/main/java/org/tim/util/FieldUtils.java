@@ -92,7 +92,7 @@ public class FieldUtils {
 
     private static class DateFieldParser extends SimpleFieldParser {
         private List<String> DATE_FORMATS = Arrays.asList(
-                "DD.MM.YYYY"
+                "dd.MM.yyyy"
         );
 
         public DateFieldParser(String name) {

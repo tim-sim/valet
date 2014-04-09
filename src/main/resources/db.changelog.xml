@@ -48,7 +48,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="FIRSTNAME" type="varchar(255)"/>
-            <column name="SECONDNAME" type="varchar(255"/>
+            <column name="SECONDNAME" type="varchar(255)"/>
             <column name="EMAIL" type="varchar(255)"/>
             <column name="USERNAME" type="varchar(255)">
                 <constraints nullable="false" unique="true"/>
@@ -69,6 +69,17 @@
             <column name="AMOUNT" type="int"/>
             <column name="PERCENT" type="int"/>
             <column name="EXPIRE" type="date"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5" author="tim">
+        <createTable tableName="TASKS">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="varchar(255)"/>
+            <column name="CREATED" type="date"/>
+            <column name="ESTIMATE" type="date"/>
         </createTable>
     </changeSet>
 

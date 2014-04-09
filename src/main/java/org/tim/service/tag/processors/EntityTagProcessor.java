@@ -37,12 +37,11 @@ public abstract class EntityTagProcessor<T extends Entity> implements TagProcess
         getDAO().save(createEntity(data));
     }
 
-    public abstract String getTagName();
+    protected abstract String getTagName();
 
-    public abstract Iterable<FieldParser> getFieldScheme();
+    protected abstract Iterable<FieldParser> getFieldScheme();
 
-    public abstract T createEntity(Map<String, Object> data);
+    protected abstract T createEntity(Map<String, Object> data);
 
-    public abstract EntityDAO<T> getDAO();
-
+    protected abstract EntityDAO<T> getDAO();
 }

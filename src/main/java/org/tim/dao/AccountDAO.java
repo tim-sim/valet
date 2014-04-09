@@ -1,11 +1,12 @@
 package org.tim.dao;
 
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 import org.tim.domain.Account;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 /**
@@ -17,11 +18,11 @@ public class AccountDAO extends EntityDAO<Account> {
         @Override
         public Account mapRow(ResultSet resultSet, int i) throws SQLException {
             Account account = new Account();
-            account.setId(resultSet.getLong("id"));
-            account.setBank(resultSet.getString("bank"));
-            account.setAmount(resultSet.getLong("amount"));
-            account.setPercent(resultSet.getInt("percent"));
-            account.setExpire(resultSet.getDate("expire"));
+            account.setId(resultSet.getLong("ID"));
+            account.setBank(resultSet.getString("BANK"));
+            account.setAmount(resultSet.getLong("AMOUNT"));
+            account.setPercent(resultSet.getInt("PERCENT"));
+            account.setExpire(resultSet.getDate("EXPIRE"));
             return account;
         }
     };
@@ -38,12 +39,25 @@ public class AccountDAO extends EntityDAO<Account> {
     }
 
     @Override
-    public Account save(Account account) {
+    public Account save(final Account account) {
         if (account.getId() == 0) {
-            jdbcTemplate.update("insert into ACCOUNTS () values ()");
+            GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+            jdbcTemplate.update(new PreparedStatementCreator() {
+                @Override
+                public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                    PreparedStatement statement = connection.prepareStatement("insert into ACCOUNTS (BANK, AMOUNT, PERCENT, EXPIRE) values (?, ?, ?, ?)");
+                    statement.setString(1, account.getBank());
+                    statement.setLong(2, account.getAmount());
+                    statement.setInt(3, account.getPercent());
+                    statement.setDate(4, new Date(account.getExpire().getTime()));
+                    return statement;
+                }
+            }, keyHolder);
+            account.setId(keyHolder.getKey().longValue());
         } else {
-            jdbcTemplate.update("update ACCOUNTS set where ID = ?");
+            jdbcTemplate.update("update ACCOUNTS set BANK = ?, AMOUNT = ?, PERCENT = ?, EXPIRE = ? where ID = ?",
+                    account.getBank(), account.getAmount(), account.getPercent(), account.getExpire(), account.getId());
         }
-        return null;
+        return account;
     }
 }
