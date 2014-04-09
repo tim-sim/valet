@@ -1,4 +1,4 @@
-package org.tim.service.tag.processors;
+package org.tim.service.tag;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,19 +18,13 @@ import static org.tim.util.FieldUtils.*;
 @Service
 public class AccountTagProcessor extends EntityTagProcessor<Account> {
     private static final List<FieldParser> ACCOUNT_SCHEME = Arrays.asList(
-            simpleParser("bank"),
-            numberParser("amount"),
-            percentParser("percent"),
-            dateParser("expire")
+            simpleParser(AccountsDAO.FIELD_BANK),
+            numberParser(AccountsDAO.FIELD_AMOUNT),
+            percentParser(AccountsDAO.FIELD_PERCENT),
+            dateParser(AccountsDAO.FIELD_EXPIRE)
     );
 
-    @Autowired
     private AccountsDAO accountsDAO;
-
-    @Override
-    protected String getTagName() {
-        return "account";
-    }
 
     @Override
     protected Iterable<FieldParser> getFieldScheme() {
@@ -40,18 +34,24 @@ public class AccountTagProcessor extends EntityTagProcessor<Account> {
     @Override
     protected Account createEntity(Map<String, Object> data) {
         Account account = new Account();
-        account.setBank((String) data.get("bank"));
-        account.setAmount((long) data.get("amount"));
-        account.setPercent((int) data.get("percent"));
-        account.setExpire((Date) data.get("expire"));
+        account.setBank((String) data.get(AccountsDAO.FIELD_BANK));
+        account.setAmount((long) data.get(AccountsDAO.FIELD_AMOUNT));
+        account.setPercent((int) data.get(AccountsDAO.FIELD_PERCENT));
+        account.setExpire((Date) data.get(AccountsDAO.FIELD_EXPIRE));
         return account;
     }
 
     @Override
-    protected AccountsDAO getDAO() {
+    protected AccountsDAO getEntityDAO() {
         return accountsDAO;
     }
 
+    @Override
+    public String getTagName() {
+        return "account";
+    }
+
+    @Autowired
     public void setAccountsDAO(AccountsDAO accountsDAO) {
         this.accountsDAO = accountsDAO;
     }

@@ -1,8 +1,8 @@
-package org.tim.service.tag.processors;
+package org.tim.service.tag;
 
 import org.springframework.stereotype.Service;
 import org.tim.dao.EntityDAO;
-import org.tim.domain.List;
+import org.tim.domain.Contact;
 import org.tim.util.FieldUtils;
 
 import java.util.Map;
@@ -11,10 +11,10 @@ import java.util.Map;
  * @author tim
  */
 @Service
-public class ListTagProcessor extends EntityTagProcessor<List> {
+public class ContactTagProcessor extends EntityTagProcessor<Contact> {
     @Override
     public String getTagName() {
-        return "list";
+        return "contact";
     }
 
     @Override
@@ -23,12 +23,12 @@ public class ListTagProcessor extends EntityTagProcessor<List> {
     }
 
     @Override
-    public List createEntity(Map<String, Object> data) {
+    public Contact createEntity(Map<String, Object> data) {
         return null;
     }
 
     @Override
-    public EntityDAO<List> getDAO() {
+    public EntityDAO<Contact> getEntityDAO() {
         return null;
     }
 }

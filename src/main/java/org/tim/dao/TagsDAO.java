@@ -72,7 +72,7 @@ public class TagsDAO {
         jdbcTemplate.update("delete from TAGS t where t.ID = ? and not exists (select 1 from NOTES_TAGS nt where nt.TAG_ID = t.ID)", tagId);
     }
 
-    public void merge(Tag tag) {
+    public void save(Tag tag) {
         Tag existent = findByName(tag.getName());
         if (existent == null) {
             create(tag);

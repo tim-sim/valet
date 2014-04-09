@@ -1,4 +1,4 @@
-package org.tim.service.tag.processors;
+package org.tim.service.tag;
 
 import org.junit.After;
 import org.junit.Before;
@@ -40,7 +40,7 @@ public class AccountTagProcessorTest extends BaseDbTest {
 
     @Test
     public void testParse() throws Exception {
-        Date expire = getFutureDate(365);
+        Date expire = getDate(365);
         Note note = new Note();
         note.getTags().add(new Tag("account"));
         note.setContent(String.format("%s, %d, %d%%, %4$td.%4$tm.%4$tY", BANK, AMOUNT, PERCENT, expire));

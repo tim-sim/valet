@@ -7,22 +7,25 @@ import org.springframework.stereotype.Repository;
 import org.tim.domain.Task;
 
 import java.sql.*;
-import java.util.List;
 
 /**
  * @author tim
  */
 @Repository
 public class TasksDAO extends EntityDAO<Task> {
-    private static final String TASKS_TABLE = "TASKS";
+    public static final String TABLE_TASKS = "TASKS";
+    public static final String FIELD_DESCRIPTION = "DESCRIPTION";
+    public static final String FIELD_CREATED = "CREATED";
+    public static final String FIELD_ESTIMATE = "ESTIMATE";
+
     private static final RowMapper<Task> TASK_MAPPER = new RowMapper<Task>() {
         @Override
         public Task mapRow(ResultSet resultSet, int i) throws SQLException {
             Task task = new Task();
             task.setId(resultSet.getLong("ID"));
-            task.setDescription(resultSet.getString("DESCRIPTION"));
-            task.setCreated(resultSet.getDate("CREATED"));
-            task.setEstimate(resultSet.getDate("ESTIMATE"));
+            task.setDescription(resultSet.getString(FIELD_DESCRIPTION));
+            task.setCreated(resultSet.getDate(FIELD_CREATED));
+            task.setEstimate(resultSet.getDate(FIELD_ESTIMATE));
             return task;
         }
     };
@@ -57,6 +60,6 @@ public class TasksDAO extends EntityDAO<Task> {
 
     @Override
     protected String entityTable() {
-        return TASKS_TABLE;
+        return TABLE_TASKS;
     }
 }

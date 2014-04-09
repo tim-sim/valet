@@ -1,4 +1,4 @@
-package org.tim.service.tag.processors;
+package org.tim.service.tag;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,16 +19,11 @@ import static org.tim.util.FieldUtils.*;
 @Service
 public class TaskTagProcessor extends EntityTagProcessor<Task> {
     private final List<FieldParser> TASK_SCHEME = Arrays.asList(
-            simpleParser("description"),
-            dateParser("estimate")
+            simpleParser(TasksDAO.FIELD_DESCRIPTION),
+            dateParser(TasksDAO.FIELD_ESTIMATE)
     );
 
-    @Autowired
     private TasksDAO tasksDAO;
-    @Override
-    protected String getTagName() {
-        return "task";
-    }
 
     @Override
     protected Iterable<FieldParser> getFieldScheme() {
@@ -38,16 +33,22 @@ public class TaskTagProcessor extends EntityTagProcessor<Task> {
     @Override
     protected Task createEntity(Map<String, Object> data) {
         Task task = new Task();
-        task.setDescription((String) data.get("description"));
-        task.setEstimate((Date) data.get("estimate"));
+        task.setDescription((String) data.get(TasksDAO.FIELD_DESCRIPTION));
+        task.setEstimate((Date) data.get(TasksDAO.FIELD_ESTIMATE));
         return task;
     }
 
     @Override
-    protected EntityDAO<Task> getDAO() {
+    protected EntityDAO<Task> getEntityDAO() {
         return tasksDAO;
     }
 
+    @Override
+    public String getTagName() {
+        return "task";
+    }
+
+    @Autowired
     public void setTasksDAO(TasksDAO tasksDAO) {
         this.tasksDAO = tasksDAO;
     }

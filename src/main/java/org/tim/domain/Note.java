@@ -8,19 +8,10 @@ import java.util.List;
 /**
  * @author tim
  */
-public class Note {
-    private long id;
+public class Note extends Entity {
     private String content;
     private Date created = new Date();
     private List<Tag> tags = Lists.newArrayList();
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getContent() {
         return content;

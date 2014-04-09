@@ -1,11 +1,8 @@
-package org.tim.service.tag.processors;
+package org.tim.service.tag;
 
 import org.h2.jdbcx.JdbcDataSource;
-import org.junit.After;
 import org.junit.Before;
-import org.tim.dao.NotesDAO;
 
-import javax.sql.DataSource;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -27,7 +24,7 @@ public class BaseDbTest {
         dataSource.setPassword(H2_PASS);
     }
 
-    protected Date getFutureDate(int days) {
+    protected Date getDate(int days) {
         Calendar calendar = new GregorianCalendar();
         calendar.add(Calendar.DAY_OF_YEAR, days);
         calendar.set(Calendar.HOUR_OF_DAY, 0);

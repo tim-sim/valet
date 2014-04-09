@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tim.domain.Note;
 import org.tim.domain.Tag;
-import org.tim.service.CommonService;
-import org.tim.service.NotesService;
+import org.tim.service.ReadDataService;
+import org.tim.service.WriteDataService;
+import org.tim.service.tag.TagManager;
 
 /**
  * @author tim
@@ -21,9 +22,11 @@ import org.tim.service.NotesService;
 public class NotesController {
     private final static Splitter TAG_SPLITTER = Splitter.on(",").trimResults().omitEmptyStrings();
     @Autowired
-    private NotesService notesService;
+    private WriteDataService writeDataService;
     @Autowired
-    private CommonService commonService;
+    private ReadDataService readDataService;
+    @Autowired
+    private TagManager tagManager;
 
     @RequestMapping(value = "/")
     public String index() {
@@ -35,15 +38,15 @@ public class NotesController {
 
     @RequestMapping(value = "/notes")
     public String notes(Model model) {
-        model.addAttribute("notes", notesService.getAllNotes());
-        model.addAttribute("tags", notesService.getAllTags());
+        model.addAttribute("notes", readDataService.getAllNotes());
+        model.addAttribute("tags", readDataService.getAllTags());
         return "notes";
     }
 
     @RequestMapping(value = "/notes/tag")
     public String noteByTag(@RequestParam long id, Model model) {
-        model.addAttribute("notes", notesService.getNotesByTag(id));
-        model.addAttribute("tags", notesService.getAllTags());
+        model.addAttribute("notes", readDataService.getNotesByTag(id));
+        model.addAttribute("tags", readDataService.getAllTags());
         return "notes";
     }
 
@@ -56,16 +59,15 @@ public class NotesController {
                 return new Tag(tagName);
             }
         }));
-        notesService.addNote(note);
+        writeDataService.addNote(note);
+        tagManager.processNote(note);
+
         return "redirect:/notes/";
     }
 
     @RequestMapping(value = "/notes/delete", method = RequestMethod.GET)
     public String deleteNote(@RequestParam(value = "id") long id) {
-        Note note = notesService.getById(id);
-        if (note != null) {
-            notesService.removeNote(note);
-        }
+        writeDataService.removeNote(id);
         return "redirect:/notes/";
     }
 
@@ -74,7 +76,7 @@ public class NotesController {
      */
     @RequestMapping(value = "/accounts")
     public String accounts(Model model) {
-        model.addAttribute("accounts", commonService.getAllAccounts());
+        model.addAttribute("accounts", readDataService.getAllAccounts());
         return "accounts";
     }
 
@@ -102,7 +104,7 @@ public class NotesController {
 
     @RequestMapping(value = "/tasks")
     public String tasks(Model model) {
-        model.addAttribute("tasks", commonService.getAllTasks());
+        model.addAttribute("tasks", readDataService.getAllTasks());
         return "tasks";
     }
 }

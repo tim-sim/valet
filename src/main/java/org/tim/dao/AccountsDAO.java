@@ -7,24 +7,27 @@ import org.springframework.stereotype.Repository;
 import org.tim.domain.Account;
 
 import java.sql.*;
-import java.util.List;
 
 /**
  * @author tim
  */
 @Repository
 public class AccountsDAO extends EntityDAO<Account> {
-    private static final String ACCOUNTS_TABLE = "ACCOUNTS";
+    public static final String TABLE_ACCOUNTS = "ACCOUNTS";
+    public static final String FIELD_BANK = "BANK";
+    public static final String FIELD_AMOUNT = "AMOUNT";
+    public static final String FIELD_PERCENT = "PERCENT";
+    public static final String FIELD_EXPIRE = "EXPIRE";
 
     private static final RowMapper<Account> ACCOUNT_MAPPER = new RowMapper<Account>() {
         @Override
         public Account mapRow(ResultSet resultSet, int i) throws SQLException {
             Account account = new Account();
             account.setId(resultSet.getLong("ID"));
-            account.setBank(resultSet.getString("BANK"));
-            account.setAmount(resultSet.getLong("AMOUNT"));
-            account.setPercent(resultSet.getInt("PERCENT"));
-            account.setExpire(resultSet.getDate("EXPIRE"));
+            account.setBank(resultSet.getString(FIELD_BANK));
+            account.setAmount(resultSet.getLong(FIELD_AMOUNT));
+            account.setPercent(resultSet.getInt(FIELD_PERCENT));
+            account.setExpire(resultSet.getDate(FIELD_EXPIRE));
             return account;
         }
     };
@@ -59,6 +62,6 @@ public class AccountsDAO extends EntityDAO<Account> {
 
     @Override
     protected String entityTable() {
-        return ACCOUNTS_TABLE;
+        return TABLE_ACCOUNTS;
     }
 }

@@ -1,4 +1,4 @@
-package org.tim.service.tag.processors;
+package org.tim.service.tag;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -9,11 +9,8 @@ import org.tim.domain.Note;
 import org.tim.domain.Tag;
 import org.tim.domain.Task;
 
-import javax.sql.DataSource;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -42,7 +39,7 @@ public class TaskTagProcessorTest extends BaseDbTest {
 
     @Test
     public void testParse() throws Exception {
-        Date estimate = getFutureDate(1);
+        Date estimate = getDate(1);
 
         Note note = new Note();
         note.getTags().add(new Tag("task"));

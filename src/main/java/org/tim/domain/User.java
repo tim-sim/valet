@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * @author tim
  */
-public class User {
+public class User extends Entity {
     private String firstName;
 
     private String secondName;
@@ -17,7 +17,6 @@ public class User {
     private String password;
 
     private Date created;
-    private long id;
 
     public String getSecondName() {
         return secondName;
@@ -65,13 +64,5 @@ public class User {
 
     public void setCreated(Date created) {
         this.created = created;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 }
