@@ -1,6 +1,7 @@
 package org.tim.service.tag.processors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.tim.dao.EntityDAO;
 import org.tim.dao.TasksDAO;
 import org.tim.domain.Task;
@@ -15,6 +16,7 @@ import static org.tim.util.FieldUtils.*;
 /**
  * @author tim
  */
+@Service
 public class TaskTagProcessor extends EntityTagProcessor<Task> {
     private final List<FieldParser> TASK_SCHEME = Arrays.asList(
             simpleParser("description"),

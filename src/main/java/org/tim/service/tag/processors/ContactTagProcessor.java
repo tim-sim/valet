@@ -1,5 +1,6 @@
 package org.tim.service.tag.processors;
 
+import org.springframework.stereotype.Service;
 import org.tim.dao.EntityDAO;
 import org.tim.domain.Contact;
 import org.tim.util.FieldUtils;
@@ -9,6 +10,7 @@ import java.util.Map;
 /**
  * @author tim
  */
+@Service
 public class ContactTagProcessor extends EntityTagProcessor<Contact> {
     @Override
     public String getTagName() {

@@ -13,16 +13,13 @@
 </head>
 <body>
 <div class="content bordered">
-    <div class="" th:replace="fragments::header">Header</div>
+    <div th:replace="fragments::header">Header</div>
 
     <div class="clearfix clean">
         <div class="add-form bordered">
-            <form id="addNoteForm" action="add" method="post" accept-charset="UTF-8">
-                <input id="noteTags" name="noteTags" class="bordered" type="text" placeholder="Tags"/>
-                <input id="noteContent" name="noteContent" class="bordered" type="text" placeholder="Content"/>
-            </form>
+            <div th:replace="fragments::addNoteForm"></div>
         </div>
-        <div class="note-list bordered">
+        <div class="notes-list bordered">
             <input id="quickSearch" name="quickSearch" class="bordered" type="text" placeholder="Search"/>
 
             <div th:remove="tag" th:if="${!#lists.isEmpty(notes)}" th:each="note : ${notes}">

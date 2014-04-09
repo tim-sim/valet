@@ -13,7 +13,7 @@ import java.util.List;
  * @author tim
  */
 @Repository
-public class AccountDAO extends EntityDAO<Account> {
+public class AccountsDAO extends EntityDAO<Account> {
     private static final String ACCOUNTS_TABLE = "ACCOUNTS";
 
     private static final RowMapper<Account> ACCOUNT_MAPPER = new RowMapper<Account>() {
@@ -40,7 +40,7 @@ public class AccountDAO extends EntityDAO<Account> {
                     statement.setString(1, account.getBank());
                     statement.setLong(2, account.getAmount());
                     statement.setInt(3, account.getPercent());
-                    statement.setDate(4, new Date(account.getExpire().getTime()));
+                    statement.setDate(4, account.getExpire() != null ? new Date(account.getExpire().getTime()) : null);
                     return statement;
                 }
             }, keyHolder);

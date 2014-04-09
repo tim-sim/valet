@@ -14,8 +14,33 @@
 <body>
 <div class="content bordered">
     <div th:replace="fragments::header">Header</div>
-    <h3>Under construction</h3>
-    <!-- CONTENT -->
+
+    <div class="clean clearfix">
+        <div class="add-form bordered">
+            <div th:replace="fragments::addNoteForm"></div>
+        </div>
+        <div class="accounts-list bordered">
+            <table th:if="${!#lists.isEmpty(accounts)}">
+                <thead>
+                    <tr>
+                        <td>Bank</td>
+                        <td>Amount</td>
+                        <td>Rate</td>
+                        <td>Expire</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="account : ${accounts}">
+                        <td th:text="${account.bank}">Bank name</td>
+                        <td th:text="${account.amount}">100000</td>
+                        <td th:text="${account.percent} + '%'">10%</td>
+                        <td th:text="${account.expire}">31-12-2010</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <div class="footer bordered">Footer</div>
 </div>
 <script src="/js/lib/jquery-2.1.0.js"></script>

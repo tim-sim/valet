@@ -14,8 +14,31 @@
 <body>
 <div class="content bordered">
     <div th:replace="fragments::header">Header</div>
-    <h3>Under construction</h3>
-    <!-- CONTENT -->
+
+    <div class="clearfix clean">
+        <div class="add-form bordered">
+            <div th:replace="fragments::addNoteForm"></div>
+        </div>
+        <div class="tasks-list bordered">
+            <table th:if="${!#lists.isEmpty(tasks)}">
+                <thead>
+                <tr>
+                    <td>Description</td>
+                    <td>Created</td>
+                    <td>Estimate</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="task : ${tasks}">
+                    <td th:text="${task.description}">Task description</td>
+                    <td th:text="${task.created}">01-01-2000</td>
+                    <td th:text="${task.estimate}">31-12-2001</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <div class="footer bordered">Footer</div>
 </div>
 <script src="/js/lib/jquery-2.1.0.js"></script>

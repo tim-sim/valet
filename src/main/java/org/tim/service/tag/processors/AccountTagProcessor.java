@@ -2,7 +2,7 @@ package org.tim.service.tag.processors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.tim.dao.AccountDAO;
+import org.tim.dao.AccountsDAO;
 import org.tim.domain.Account;
 
 import java.util.Arrays;
@@ -25,7 +25,7 @@ public class AccountTagProcessor extends EntityTagProcessor<Account> {
     );
 
     @Autowired
-    private AccountDAO accountDAO;
+    private AccountsDAO accountsDAO;
 
     @Override
     protected String getTagName() {
@@ -48,11 +48,11 @@ public class AccountTagProcessor extends EntityTagProcessor<Account> {
     }
 
     @Override
-    protected AccountDAO getDAO() {
-        return accountDAO;
+    protected AccountsDAO getDAO() {
+        return accountsDAO;
     }
 
-    public void setAccountDAO(AccountDAO accountDAO) {
-        this.accountDAO = accountDAO;
+    public void setAccountsDAO(AccountsDAO accountsDAO) {
+        this.accountsDAO = accountsDAO;
     }
 }

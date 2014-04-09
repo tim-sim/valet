@@ -1,10 +1,9 @@
 package org.tim.service.tag.processors;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.tim.dao.AccountDAO;
+import org.tim.dao.AccountsDAO;
 import org.tim.domain.Account;
 import org.tim.domain.Note;
 import org.tim.domain.Tag;
@@ -23,19 +22,19 @@ public class AccountTagProcessorTest extends BaseDbTest {
     private static final int PERCENT = 10;
 
     private AccountTagProcessor tagProcessor = new AccountTagProcessor();
-    private AccountDAO accountDAO = new AccountDAO();
+    private AccountsDAO accountsDAO = new AccountsDAO();
 
     @Before
     public void setUp() {
         super.setUp();
-        accountDAO.setDataSource(dataSource);
-        tagProcessor.setAccountDAO(accountDAO);
+        accountsDAO.setDataSource(dataSource);
+        tagProcessor.setAccountsDAO(accountsDAO);
     }
 
     @After
     public void tearDown() {
-        for (Account account : accountDAO.getAll()) {
-            accountDAO.delete(account.getId());
+        for (Account account : accountsDAO.getAll()) {
+            accountsDAO.delete(account.getId());
         }
     }
 
@@ -48,7 +47,7 @@ public class AccountTagProcessorTest extends BaseDbTest {
 
         tagProcessor.parse(note);
 
-        List<Account> accounts = accountDAO.getAll();
+        List<Account> accounts = accountsDAO.getAll();
         Account account = accounts.get(0);
         assertEquals(BANK, account.getBank());
         assertEquals(AMOUNT, account.getAmount());

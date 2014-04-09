@@ -1,6 +1,9 @@
-<div class="header clearfix bordered" th:fragment="header">
+<div th:fragment="header" class="header clearfix bordered">
     <div class="menu-item">
         <a class="without-underline" href="#" th:href="@{/notes/}">Notes</a>
+    </div>
+    <div class="menu-item">
+        <a class="without-underline" href="#" th:href="@{/accounts/}">Accounts</a>
     </div>
     <div class="menu-item">
         <a class="without-underline" href="#" th:href="@{/contacts/}">Contacts</a>
@@ -12,3 +15,8 @@
         <a class="without-underline" href="#" th:href="@{/tasks/}">Tasks</a>
     </div>
 </div>
+
+<form th:fragment="addNoteForm" id="addNoteForm" action="/notes/add" method="post" accept-charset="UTF-8">
+    <input id="noteTags" name="noteTags" class="bordered" type="text" placeholder="Tags"/>
+    <input id="noteContent" name="noteContent" class="bordered" type="text" placeholder="Content"/>
+</form>

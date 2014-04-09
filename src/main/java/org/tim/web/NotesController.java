@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tim.domain.Note;
 import org.tim.domain.Tag;
+import org.tim.service.CommonService;
 import org.tim.service.NotesService;
 
 /**
@@ -21,6 +22,8 @@ public class NotesController {
     private final static Splitter TAG_SPLITTER = Splitter.on(",").trimResults().omitEmptyStrings();
     @Autowired
     private NotesService notesService;
+    @Autowired
+    private CommonService commonService;
 
     @RequestMapping(value = "/")
     public String index() {
@@ -67,6 +70,15 @@ public class NotesController {
     }
 
     /*
+     * Accounts view
+     */
+    @RequestMapping(value = "/accounts")
+    public String accounts(Model model) {
+        model.addAttribute("accounts", commonService.getAllAccounts());
+        return "accounts";
+    }
+
+    /*
      * Contacts view
      */
 
@@ -85,20 +97,12 @@ public class NotesController {
     }
 
     /*
-     * Reminders view
-     */
-
-    @RequestMapping(value = "/reminders")
-    public String reminders(Model model) {
-        return "reminders";
-    }
-
-    /*
      * Tasks view
      */
 
     @RequestMapping(value = "/tasks")
     public String tasks(Model model) {
+        model.addAttribute("tasks", commonService.getAllTasks());
         return "tasks";
     }
 }
