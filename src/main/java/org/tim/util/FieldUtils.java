@@ -75,18 +75,21 @@ public class FieldUtils {
         public Object getValue(String contentItem) {
             Matcher matcher = pattern.matcher(contentItem);
 
-            return matcher.matches() ? matcher.group() : "";
+            return matcher.matches() ? matcher.group(1) : "";
         }
     }
 
-    private static class PercentFieldParser extends RegexFieldParser {
+    private static class PercentFieldParser extends SimpleFieldParser {
+        private static Pattern pattern = Pattern.compile("(\\d+)%");
         public PercentFieldParser(String name) {
-            super(name, "(\\d+)%");
+            super(name);
         }
 
         @Override
-        public Long getValue(String contentItem) {
-            return Long.parseLong((String) super.getValue(contentItem));
+        public Integer getValue(String contentItem) {
+            Matcher matcher = pattern.matcher(contentItem);
+
+            return matcher.matches() ? Integer.valueOf(matcher.group(1)) : null;
         }
     }
 

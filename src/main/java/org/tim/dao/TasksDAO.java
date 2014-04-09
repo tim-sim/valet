@@ -14,6 +14,7 @@ import java.util.List;
  */
 @Repository
 public class TasksDAO extends EntityDAO<Task> {
+    private static final String TASKS_TABLE = "TASKS";
     private static final RowMapper<Task> TASK_MAPPER = new RowMapper<Task>() {
         @Override
         public Task mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -25,17 +26,6 @@ public class TasksDAO extends EntityDAO<Task> {
             return task;
         }
     };
-
-    @Override
-    public List<Task> getAll() {
-        return jdbcTemplate.query("select * from TASKS", TASK_MAPPER);
-    }
-
-    @Override
-    public Task getById(long id) {
-        List<Task> tasks = jdbcTemplate.query("select * from TASKS where ID = ?", TASK_MAPPER, id);
-        return null;
-    }
 
     @Override
     public Task save(final Task task) {
@@ -60,7 +50,13 @@ public class TasksDAO extends EntityDAO<Task> {
         return task;
     }
 
-    public void delete(long id) {
-        jdbcTemplate.update("delete from TASKS where ID = ?", id);
+    @Override
+    protected RowMapper<Task> entityMapper() {
+        return TASK_MAPPER;
+    }
+
+    @Override
+    protected String entityTable() {
+        return TASKS_TABLE;
     }
 }

@@ -14,6 +14,8 @@ import java.util.List;
  */
 @Repository
 public class AccountDAO extends EntityDAO<Account> {
+    private static final String ACCOUNTS_TABLE = "ACCOUNTS";
+
     private static final RowMapper<Account> ACCOUNT_MAPPER = new RowMapper<Account>() {
         @Override
         public Account mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -26,17 +28,6 @@ public class AccountDAO extends EntityDAO<Account> {
             return account;
         }
     };
-
-    @Override
-    public List<Account> getAll() {
-        return jdbcTemplate.query("select * from ACCOUNTS", ACCOUNT_MAPPER);
-    }
-
-    @Override
-    public Account getById(long id) {
-        List<Account> accounts = jdbcTemplate.query("select * from ACCOUNTS where ID = ?", ACCOUNT_MAPPER, id);
-        return (accounts != null && accounts.size() > 0) ? accounts.get(0) : null;
-    }
 
     @Override
     public Account save(final Account account) {
@@ -59,5 +50,15 @@ public class AccountDAO extends EntityDAO<Account> {
                     account.getBank(), account.getAmount(), account.getPercent(), account.getExpire(), account.getId());
         }
         return account;
+    }
+
+    @Override
+    protected RowMapper<Account> entityMapper() {
+        return ACCOUNT_MAPPER;
+    }
+
+    @Override
+    protected String entityTable() {
+        return ACCOUNTS_TABLE;
     }
 }

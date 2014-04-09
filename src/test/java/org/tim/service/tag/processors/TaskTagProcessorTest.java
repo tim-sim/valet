@@ -27,7 +27,7 @@ public class TaskTagProcessorTest extends BaseDbTest {
 
     @Before
     public void setUp() {
-        DataSource dataSource = createDataSource();
+        super.setUp();
         tasksDAO.setDataSource(dataSource);
         tagProcessor.setTasksDAO(tasksDAO);
     }
@@ -42,18 +42,11 @@ public class TaskTagProcessorTest extends BaseDbTest {
 
     @Test
     public void testParse() throws Exception {
-        Calendar calendar = new GregorianCalendar();
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        calendar.set(Calendar.HOUR, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        Date estimate = calendar.getTime();
-        String estimateString = new SimpleDateFormat("dd.MM.yyyy").format(calendar.getTime());
+        Date estimate = getFutureDate(1);
 
         Note note = new Note();
         note.getTags().add(new Tag("task"));
-        note.setContent(DESCRIPTION + "," + estimateString);
+        note.setContent(DESCRIPTION + "," + new SimpleDateFormat("dd.MM.yyyy").format(estimate));
 
         tagProcessor.parse(note);
 
