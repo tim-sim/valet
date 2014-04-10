@@ -83,4 +83,26 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="6" author="tim">
+        <createTable tableName="EXPENSES">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="TITLE" type="varchar(255)"/>
+            <column name="AMOUNT" type="int"/>
+            <column name="CATEGORY" type="varchar(255)"/>
+            <column name="CREATED" type="date"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="7" author="tim">
+        <createTable tableName="EVENTS">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(255)"/>
+            <column name="PLACE" type="varchar(255)"/>
+            <column name="DATE" type="date"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
