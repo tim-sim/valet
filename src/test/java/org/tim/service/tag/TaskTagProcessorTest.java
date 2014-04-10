@@ -9,16 +9,12 @@ import org.tim.domain.Note;
 import org.tim.domain.Tag;
 import org.tim.domain.Task;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * @author tim
  */
 public class TaskTagProcessorTest extends BaseDbTest {
-    private static final String DESCRIPTION = "task description";
-
     private TaskTagProcessor tagProcessor = new TaskTagProcessor();
     private TasksDAO tasksDAO = new TasksDAO();
 
@@ -31,25 +27,39 @@ public class TaskTagProcessorTest extends BaseDbTest {
 
     @After
     public void tearDown() {
-        List<Task> tasks = tasksDAO.getAll();
-        for (Task task : tasks) {
+        for (Task task : tasksDAO.getAll()) {
             tasksDAO.delete(task.getId());
         }
     }
 
     @Test
     public void testParse() throws Exception {
-        Date estimate = getDate(1);
+        Task task = testTask();
 
-        Note note = new Note();
-        note.getTags().add(new Tag("task"));
-        note.setContent(DESCRIPTION + "," + new SimpleDateFormat("dd.MM.yyyy").format(estimate));
+        Note note = testNote(task);
 
         tagProcessor.parse(note);
 
-        List<Task> tasks = tasksDAO.getAll();
-        Task task = tasks.get(0);
-        Assert.assertEquals(DESCRIPTION, task.getDescription());
-        Assert.assertEquals(estimate, task.getEstimate());
+        Task savedTask = tasksDAO.getAll().get(0);
+        assertEquals(task, savedTask);
+    }
+
+    private Note testNote(Task task) {
+        Note note = new Note();
+        note.setTags(Arrays.asList(new Tag("task")));
+        note.setContent(task.toString());
+        return note;
+    }
+
+    private Task testTask() {
+        Task task = new Task();
+        task.setDescription("some task");
+        task.setEstimate(getDate(10));
+        return task;
+    }
+
+    private void assertEquals(Task expected, Task actual) {
+        Assert.assertEquals(expected.getDescription(), actual.getDescription());
+        Assert.assertEquals(expected.getEstimate(), actual.getEstimate());
     }
 }

@@ -7,6 +7,7 @@ import org.tim.domain.Entity;
 import org.tim.domain.Note;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import static org.tim.util.FieldUtils.FieldParser;
@@ -30,7 +31,7 @@ public abstract class EntityTagProcessor<T extends Entity> implements TagProcess
         getEntityDAO().save(createEntity(data));
     }
 
-    protected abstract Iterable<FieldParser> getFieldScheme();
+    protected abstract List<FieldParser> getFieldScheme();
 
     protected abstract T createEntity(Map<String, Object> data);
 

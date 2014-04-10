@@ -1,7 +1,6 @@
 package org.tim.dao;
 
 import org.springframework.jdbc.core.RowMapper;
-import org.tim.domain.Account;
 import org.tim.domain.Entity;
 
 import java.util.List;
@@ -10,6 +9,8 @@ import java.util.List;
  * @author tim
  */
 public abstract class EntityDAO<T extends Entity> extends BaseDAO {
+    public static final String FIELD_ID = "ID";
+
     public List<T> getAll() {
         return jdbcTemplate.query(String.format("select * from %s", entityTable()), entityMapper());
     }

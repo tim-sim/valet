@@ -3,7 +3,7 @@ package org.tim.domain;
 import java.util.Date;
 
 /**
- * @author TNasibullin
+ * @author tim
  */
 public class Expense extends Entity {
     private String title;
@@ -41,5 +41,10 @@ public class Expense extends Entity {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s, %s, %d, %4$td.%4$tm.%4$tY", title, category, amount, created);
     }
 }

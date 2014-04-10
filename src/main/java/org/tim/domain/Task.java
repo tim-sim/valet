@@ -33,4 +33,9 @@ public class Task extends Entity {
     public void setEstimate(Date estimate) {
         this.estimate = estimate;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s, %2$td.%2$tm.%2$tY", description, estimate);
+    }
 }

@@ -1,6 +1,7 @@
 package org.tim.service.tag;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.tim.dao.AccountsDAO;
@@ -8,19 +9,12 @@ import org.tim.domain.Account;
 import org.tim.domain.Note;
 import org.tim.domain.Tag;
 
-import java.util.Date;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
+import java.util.Arrays;
 
 /**
  * @author tim
  */
 public class AccountTagProcessorTest extends BaseDbTest {
-    private static final String BANK = "TCS";
-    private static final int AMOUNT = 100000;
-    private static final int PERCENT = 10;
-
     private AccountTagProcessor tagProcessor = new AccountTagProcessor();
     private AccountsDAO accountsDAO = new AccountsDAO();
 
@@ -40,18 +34,35 @@ public class AccountTagProcessorTest extends BaseDbTest {
 
     @Test
     public void testParse() throws Exception {
-        Date expire = getDate(365);
-        Note note = new Note();
-        note.getTags().add(new Tag("account"));
-        note.setContent(String.format("%s, %d, %d%%, %4$td.%4$tm.%4$tY", BANK, AMOUNT, PERCENT, expire));
+        Account account = testAccount();
+        Note note = testNote(account);
 
         tagProcessor.parse(note);
 
-        List<Account> accounts = accountsDAO.getAll();
-        Account account = accounts.get(0);
-        assertEquals(BANK, account.getBank());
-        assertEquals(AMOUNT, account.getAmount());
-        assertEquals(PERCENT, account.getPercent());
-        assertEquals(expire, account.getExpire());
+        Account savedAccount = accountsDAO.getAll().get(0);
+        assertEquals(account, savedAccount);
+    }
+
+    private Note testNote(Account account) {
+        Note note = new Note();
+        note.setTags(Arrays.asList(new Tag("account")));
+        note.setContent(account.toString());
+        return note;
+    }
+
+    private Account testAccount() {
+        Account account = new Account();
+        account.setBank("some bank");
+        account.setAmount(100);
+        account.setPercent(10);
+        account.setExpire(getDate(365));
+        return account;
+    }
+
+    private void assertEquals(Account expected, Account actual) {
+        Assert.assertEquals(expected.getBank(), actual.getBank());
+        Assert.assertEquals(expected.getAmount(), actual.getAmount());
+        Assert.assertEquals(expected.getPercent(), actual.getPercent());
+        Assert.assertEquals(expected.getExpire(), actual.getExpire());
     }
 }

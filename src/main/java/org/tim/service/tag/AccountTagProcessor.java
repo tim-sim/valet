@@ -27,7 +27,7 @@ public class AccountTagProcessor extends EntityTagProcessor<Account> {
     private AccountsDAO accountsDAO;
 
     @Override
-    protected Iterable<FieldParser> getFieldScheme() {
+    protected List<FieldParser> getFieldScheme() {
         return ACCOUNT_SCHEME;
     }
 

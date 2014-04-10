@@ -5,25 +5,42 @@ import org.springframework.stereotype.Service;
 import org.tim.dao.EntityDAO;
 import org.tim.dao.ExpensesDAO;
 import org.tim.domain.Expense;
-import org.tim.util.FieldUtils;
 
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
+import static org.tim.dao.ExpensesDAO.*;
+import static org.tim.util.FieldUtils.*;
+
 /**
- * @author TNasibullin
+ * @author tim
  */
 @Service
 public class ExpenseTagProcessor extends EntityTagProcessor<Expense> {
+    private static final String TAG_EXPENSE = "expense";
+    private static final List<FieldParser> EXPENSE_SCHEME = Arrays.asList(
+            simpleParser(FIELD_TITLE),
+            simpleParser(FIELD_CATEGORY),
+            numberParser(FIELD_AMOUNT),
+            dateParser(FIELD_CREATED)
+    );
     private ExpensesDAO expensesDAO;
 
     @Override
-    protected Iterable<FieldUtils.FieldParser> getFieldScheme() {
-        return null;
+    protected List<FieldParser> getFieldScheme() {
+        return EXPENSE_SCHEME;
     }
 
     @Override
     protected Expense createEntity(Map<String, Object> data) {
-        return null;
+        Expense expense = new Expense();
+        expense.setTitle((String) data.get(FIELD_TITLE));
+        expense.setCategory((String) data.get(FIELD_CATEGORY));
+        expense.setAmount((long) data.get(FIELD_AMOUNT));
+        expense.setCreated((Date) data.get(FIELD_CREATED));
+        return expense;
     }
 
     @Override
@@ -33,7 +50,7 @@ public class ExpenseTagProcessor extends EntityTagProcessor<Expense> {
 
     @Override
     public String getTagName() {
-        return "expense";
+        return TAG_EXPENSE;
     }
 
     @Autowired

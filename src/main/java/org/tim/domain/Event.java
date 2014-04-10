@@ -33,4 +33,9 @@ public class Event extends Entity {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s, %s, %3$td.%3$tm.%3$tY", name, place, date);
+    }
 }

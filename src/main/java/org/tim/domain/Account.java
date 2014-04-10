@@ -42,4 +42,9 @@ public class Account extends Entity {
     public void setExpire(Date expire) {
         this.expire = expire;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s, %d, %d%%, %4$td.%4$tm.%4$tY", bank, amount, percent, expire);
+    }
 }

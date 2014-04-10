@@ -26,7 +26,7 @@ public class TaskTagProcessor extends EntityTagProcessor<Task> {
     private TasksDAO tasksDAO;
 
     @Override
-    protected Iterable<FieldParser> getFieldScheme() {
+    protected List<FieldParser> getFieldScheme() {
         return TASK_SCHEME;
     }
 
