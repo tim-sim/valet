@@ -41,21 +41,24 @@ public class DataServiceTest extends BaseDbTest {
 
     @After
     public void tearDown() {
+        for (Note note : readDataService.getAllNotes()) {
+            writeDataService.removeNote(note.getId());
+        }
     }
 
     @Test
     public void testAddNote() {
         Tag tag1 = new Tag("tag1");
         Tag tag2 = new Tag("tag2");
-        Note note1 = new Note();
-        note1.setContent("note1");
-        note1.setCreated(getDate(0));
-        note1.setTags(Arrays.asList(tag1, tag2));
+        Note note = new Note();
+        note.setContent("note1");
+        note.setCreated(getDate(0));
+        note.setTags(Arrays.asList(tag1, tag2));
 
-        writeDataService.addNote(note1);
+        writeDataService.addNote(note);
         List<Note> notes = readDataService.getAllNotes();
-        Note savedNote1 = notes.get(0);
-        assertEquals(note1, savedNote1);
+        Note savedNote = notes.get(0);
+        assertEquals(note, savedNote);
     }
 
     private void assertEquals(Note expected, Note actual) {

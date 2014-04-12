@@ -19,7 +19,7 @@ import org.tim.service.tag.TagManager;
  * @author tim
  */
 @Controller
-public class NotesController {
+public class ValetController {
     private final static Splitter TAG_SPLITTER = Splitter.on(",").trimResults().omitEmptyStrings();
     @Autowired
     private WriteDataService writeDataService;
@@ -81,21 +81,23 @@ public class NotesController {
     }
 
     /*
-     * Contacts view
+     * Events view
      */
 
-    @RequestMapping(value = "/contacts")
+    @RequestMapping(value = "/events")
     public String contacts(Model model) {
-        return "contacts";
+        model.addAttribute("events", readDataService.getAllEvents());
+        return "events";
     }
 
     /*
-     * Lists view
+     * Expenses view
      */
 
-    @RequestMapping(value = "/lists")
+    @RequestMapping(value = "/expenses")
     public String lists(Model model) {
-        return "lists";
+        model.addAttribute("expenses", readDataService.getAllExpenses());
+        return "expenses";
     }
 
     /*

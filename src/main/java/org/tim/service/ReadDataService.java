@@ -2,14 +2,8 @@ package org.tim.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.tim.dao.AccountsDAO;
-import org.tim.dao.NotesDAO;
-import org.tim.dao.TagsDAO;
-import org.tim.dao.TasksDAO;
-import org.tim.domain.Account;
-import org.tim.domain.Note;
-import org.tim.domain.Tag;
-import org.tim.domain.Task;
+import org.tim.dao.*;
+import org.tim.domain.*;
 
 import java.util.List;
 
@@ -22,6 +16,8 @@ public class ReadDataService {
     private TagsDAO tagsDAO;
     private AccountsDAO accountsDAO;
     private TasksDAO tasksDAO;
+    private EventsDAO eventsDAO;
+    private ExpensesDAO expensesDAO;
 
     @Autowired
     public void setNotesDAO(NotesDAO notesDAO) {
@@ -42,7 +38,18 @@ public class ReadDataService {
     public void setTasksDAO(TasksDAO tasksDAO) {
         this.tasksDAO = tasksDAO;
     }
-/*
+
+    @Autowired
+    public void setEventsDAO(EventsDAO eventsDAO) {
+        this.eventsDAO = eventsDAO;
+    }
+
+    @Autowired
+    public void setExpensesDAO(ExpensesDAO expensesDAO) {
+        this.expensesDAO = expensesDAO;
+    }
+
+    /*
     * Notes
     */
 
@@ -79,5 +86,20 @@ public class ReadDataService {
 
     public List<Account> getAllAccounts() {
         return accountsDAO.getAll();
+    }
+
+    /*
+     * Events
+     */
+    public List<Event> getAllEvents() {
+        return eventsDAO.getAll();
+    }
+
+    /*
+     * Expenses
+     */
+
+    public List<Expense> getAllExpenses() {
+        return expensesDAO.getAll();
     }
 }
