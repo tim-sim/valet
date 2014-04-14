@@ -23,10 +23,10 @@
             <table th:if="${!#lists.isEmpty(expenses)}">
                 <thead>
                 <tr>
-                    <td>Expense</td>
-                    <td>Category</td>
-                    <td>Amount</td>
-                    <td>Date</td>
+                    <td th:text="#{expenses.name}">Expense</td>
+                    <td th:text="#{expenses.category}">Category</td>
+                    <td th:text="#{expenses.amount}">Amount</td>
+                    <td th:text="#{expenses.created}">Date</td>
                 </tr>
                 </thead>
                 <tbody>

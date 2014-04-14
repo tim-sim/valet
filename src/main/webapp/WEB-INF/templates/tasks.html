@@ -23,9 +23,9 @@
             <table th:if="${!#lists.isEmpty(tasks)}">
                 <thead>
                 <tr>
-                    <td>Description</td>
-                    <td>Created</td>
-                    <td>Estimate</td>
+                    <td th:text="#{tasks.description}">Description</td>
+                    <td th:text="#{tasks.created}">Created</td>
+                    <td th:text="#{tasks.estimate}">Estimate</td>
                 </tr>
                 </thead>
                 <tbody>

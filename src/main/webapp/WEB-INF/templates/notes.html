@@ -20,11 +20,13 @@
             <div th:replace="fragments::addNoteForm"></div>
         </div>
         <div class="notes-list bordered">
-            <input id="quickSearch" name="quickSearch" class="bordered" type="text" placeholder="Search"/>
+            <input id="quickSearch" name="quickSearch" class="bordered" type="text"
+                   th:attr="placeholder=#{notes.search}"/>
 
             <div th:remove="tag" th:if="${!#lists.isEmpty(notes)}" th:each="note : ${notes}">
                 <div class="note">
-                    <span class="compact"><a class="without-underline" href="#" th:href="@{/notes/delete(id=${note.id})}">
+                    <span class="compact"><a class="without-underline" href="#"
+                                             th:href="@{/notes/delete(id=${note.id})}">
                         &#10006;</a></span>
                     <span class="compact" th:text="${note.content}">Note content</span>
                     <span th:remove="tag" th:if="${!#lists.isEmpty(note.tags)}" th:each="tag : ${note.tags}">

@@ -19,8 +19,18 @@
         <property name="characterEncoding" value="UTF-8"/>
     </bean>
 
+
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="/WEB-INF/Messages"/>
+    </bean>
+
+    <bean id="thymeleafMessageResolver" class="org.thymeleaf.spring4.messageresolver.SpringMessageResolver">
+        <property name="messageSource" ref="messageSource"/>
+    </bean>
+
     <bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
         <property name="templateResolver" ref="thymeleafTemplateResolver"/>
+        <property name="messageResolver" ref="thymeleafMessageResolver"/>
     </bean>
 
     <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">

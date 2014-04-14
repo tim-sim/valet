@@ -23,9 +23,9 @@
             <table th:if="${!#lists.isEmpty(events)}">
                 <thead>
                 <tr>
-                    <td>Event</td>
-                    <td>Place</td>
-                    <td>Date</td>
+                    <td th:text="#{events.name}">Event</td>
+                    <td th:text="#{events.place}">Place</td>
+                    <td th:text="#{events.date}">Date</td>
                 </tr>
                 </thead>
                 <tbody>

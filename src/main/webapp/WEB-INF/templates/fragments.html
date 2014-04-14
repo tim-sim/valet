@@ -1,22 +1,22 @@
 <div th:fragment="header" class="header clearfix bordered">
     <div class="menu-item">
-        <a class="without-underline" href="#" th:href="@{/notes/}">Notes</a>
+        <a class="without-underline" href="#" th:href="@{/notes/}" th:text="#{notes.title}">Notes</a>
     </div>
     <div class="menu-item">
-        <a class="without-underline" href="#" th:href="@{/accounts/}">Accounts</a>
+        <a class="without-underline" href="#" th:href="@{/accounts/}" th:text="#{accounts.title}">Accounts</a>
     </div>
     <div class="menu-item">
-        <a class="without-underline" href="#" th:href="@{/events/}">Events</a>
+        <a class="without-underline" href="#" th:href="@{/events/}" th:text="#{events.title}">Events</a>
     </div>
     <div class="menu-item">
-        <a class="without-underline" href="#" th:href="@{/expenses/}">Expenses</a>
+        <a class="without-underline" href="#" th:href="@{/expenses/}" th:text="#{expenses.title}">Expenses</a>
     </div>
     <div class="menu-item">
-        <a class="without-underline" href="#" th:href="@{/tasks/}">Tasks</a>
+        <a class="without-underline" href="#" th:href="@{/tasks/}" th:text="#{tasks.title}">Tasks</a>
     </div>
 </div>
 
 <form th:fragment="addNoteForm" id="addNoteForm" action="/notes/add" method="post" accept-charset="UTF-8">
-    <input id="noteTags" name="noteTags" class="bordered" type="text" placeholder="Tags"/>
-    <input id="noteContent" name="noteContent" class="bordered" type="text" placeholder="Content"/>
+    <input id="noteTags" name="noteTags" class="bordered" type="text" th:attr="placeholder=#{notes.tags}"/>
+    <input id="noteContent" name="noteContent" class="bordered" type="text" th:attr="placeholder=#{notes.content}"/>
 </form>

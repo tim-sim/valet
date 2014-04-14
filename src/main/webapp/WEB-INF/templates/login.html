@@ -14,8 +14,8 @@
 <body>
 <div class="login-form bordered">
     <form id="loginForm" action="/login" method="post" accept-charset="UTF-8">
-        <input id="username" name="username" class="bordered" type="text" placeholder="Username"/>
-        <input id="password" name="password" class="bordered" type="password" placeholder="Password"/>
+        <input id="username" name="username" class="bordered" type="text" th:attr="placeholder=#{login.username}"/>
+        <input id="password" name="password" class="bordered" type="password" th:attr="placeholder=#{login.password}"/>
     </form>
 </div>
 <script src="/js/lib/jquery-2.1.0.js"></script>
