@@ -16,6 +16,8 @@
         <apache.commons.version>3.3</apache.commons.version>
         <h2.version>1.3.175</h2.version>
         <junit.version>4.11</junit.version>
+        <mysql.version>5.1.6</mysql.version>
+        <liquibase.version>3.1.1</liquibase.version>
     </properties>
 
     <dependencies>
@@ -29,16 +31,6 @@
             <artifactId>spring-jdbc</artifactId>
             <version>${spring.version}</version>
         </dependency>
-        <!--dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-            <version>${spring.secutiry.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>${spring.secutiry.version}</version>
-        </dependency-->
         <dependency>
             <groupId>org.thymeleaf</groupId>
             <artifactId>thymeleaf-spring4</artifactId>
@@ -58,6 +50,11 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>${h2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -117,6 +114,33 @@
                                     <url>jdbc:h2:~/test</url>
                                     <username>test</username>
                                     <password>test</password>
+                                </configuration>
+                                <goals>
+                                    <goal>update</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>updateCloudDB</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.liquibase</groupId>
+                        <artifactId>liquibase-maven-plugin</artifactId>
+                        <version>${liquibase.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>process-resources</phase>
+                                <configuration>
+                                    <changeLogFile>src/main/resources/db.changelog.xml</changeLogFile>
+                                    <driver>com.mysql.jdbc.Driver</driver>
+                                    <url>jdbc:mysql://valet-timsim.rhcloud.com:3306/valet</url>
+                                    <username>valetuser</username>
+                                    <password>helloworld</password>
                                 </configuration>
                                 <goals>
                                     <goal>update</goal>
