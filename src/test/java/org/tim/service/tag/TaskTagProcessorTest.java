@@ -53,13 +53,13 @@ public class TaskTagProcessorTest extends BaseDbTest {
 
     private Task testTask() {
         Task task = new Task();
-        task.setDescription("some task");
+        task.setName("some task");
         task.setEstimate(getDate(10));
         return task;
     }
 
     private void assertEquals(Task expected, Task actual) {
-        Assert.assertEquals(expected.getDescription(), actual.getDescription());
+        Assert.assertEquals(expected.getName(), actual.getName());
         Assert.assertEquals(expected.getEstimate(), actual.getEstimate());
     }
 }

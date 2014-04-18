@@ -19,7 +19,7 @@ import static org.tim.util.FieldUtils.*;
 @Service
 public class TaskTagProcessor extends EntityTagProcessor<Task> {
     private final List<FieldParser> TASK_SCHEME = Arrays.asList(
-            simpleParser(TasksDAO.FIELD_DESCRIPTION),
+            simpleParser(TasksDAO.FIELD_NAME),
             dateParser(TasksDAO.FIELD_ESTIMATE)
     );
 
@@ -33,7 +33,7 @@ public class TaskTagProcessor extends EntityTagProcessor<Task> {
     @Override
     protected Task createEntity(Map<String, Object> data) {
         Task task = new Task();
-        task.setDescription((String) data.get(TasksDAO.FIELD_DESCRIPTION));
+        task.setName((String) data.get(TasksDAO.FIELD_NAME));
         task.setEstimate((Date) data.get(TasksDAO.FIELD_ESTIMATE));
         return task;
     }

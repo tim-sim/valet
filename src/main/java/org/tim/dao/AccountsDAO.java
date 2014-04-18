@@ -14,19 +14,19 @@ import java.sql.*;
 @Repository
 public class AccountsDAO extends EntityDAO<Account> {
     public static final String TABLE_ACCOUNTS = "ACCOUNTS";
-    public static final String FIELD_BANK = "BANK";
+    public static final String FIELD_BANKNAME = "BANKNAME";
     public static final String FIELD_AMOUNT = "AMOUNT";
-    public static final String FIELD_PERCENT = "PERCENT";
+    public static final String FIELD_RATE = "RATE";
     public static final String FIELD_EXPIRE = "EXPIRE";
 
     private static final RowMapper<Account> ACCOUNT_MAPPER = new RowMapper<Account>() {
         @Override
         public Account mapRow(ResultSet resultSet, int i) throws SQLException {
             Account account = new Account();
-            account.setId(resultSet.getLong("ID"));
-            account.setBank(resultSet.getString(FIELD_BANK));
+            account.setId(resultSet.getLong(FIELD_ID));
+            account.setBankname(resultSet.getString(FIELD_BANKNAME));
             account.setAmount(resultSet.getLong(FIELD_AMOUNT));
-            account.setPercent(resultSet.getInt(FIELD_PERCENT));
+            account.setRate(resultSet.getInt(FIELD_RATE));
             account.setExpire(resultSet.getDate(FIELD_EXPIRE));
             return account;
         }
@@ -39,18 +39,22 @@ public class AccountsDAO extends EntityDAO<Account> {
             jdbcTemplate.update(new PreparedStatementCreator() {
                 @Override
                 public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                    PreparedStatement statement = connection.prepareStatement("insert into ACCOUNTS (BANK, AMOUNT, PERCENT, EXPIRE) values (?, ?, ?, ?)");
-                    statement.setString(1, account.getBank());
+                    PreparedStatement statement = connection.prepareStatement(
+                            String.format("insert into %s (%s, %s, %s, %s) values (?, ?, ?, ?)",
+                            TABLE_ACCOUNTS, FIELD_BANKNAME, FIELD_AMOUNT, FIELD_RATE, FIELD_EXPIRE));
+                    statement.setString(1, account.getBankname());
                     statement.setLong(2, account.getAmount());
-                    statement.setInt(3, account.getPercent());
+                    statement.setInt(3, account.getRate());
                     statement.setDate(4, account.getExpire() != null ? new Date(account.getExpire().getTime()) : null);
                     return statement;
                 }
             }, keyHolder);
             account.setId(keyHolder.getKey().longValue());
         } else {
-            jdbcTemplate.update("update ACCOUNTS set BANK = ?, AMOUNT = ?, PERCENT = ?, EXPIRE = ? where ID = ?",
-                    account.getBank(), account.getAmount(), account.getPercent(), account.getExpire(), account.getId());
+            jdbcTemplate.update(
+                    String.format("update %s set %s = ?, %s = ?, %s = ?, %s = ? where %s = ?",
+                    TABLE_ACCOUNTS, FIELD_BANKNAME, FIELD_AMOUNT, FIELD_RATE, FIELD_EXPIRE, FIELD_ID),
+                    account.getBankname(), account.getAmount(), account.getRate(), account.getExpire(), account.getId());
         }
         return account;
     }

@@ -20,7 +20,7 @@
             <column name="ID" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="NAME" type="varchar(255)">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
@@ -47,9 +47,9 @@
             <column name="ID" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="BANK" type="varchar(255)"/>
+            <column name="BANKNAME" type="varchar(255)"/>
             <column name="AMOUNT" type="int"/>
-            <column name="PERCENT" type="int"/>
+            <column name="RATE" type="int"/>
             <column name="EXPIRE" type="date"/>
         </createTable>
     </changeSet>
@@ -59,7 +59,7 @@
             <column name="ID" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="DESCRIPTION" type="varchar(255)"/>
+            <column name="NAME" type="varchar(255)"/>
             <column name="CREATED" type="date"/>
             <column name="ESTIMATE" type="date"/>
         </createTable>
@@ -70,7 +70,7 @@
             <column name="ID" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="TITLE" type="varchar(255)"/>
+            <column name="NAME" type="varchar(255)"/>
             <column name="AMOUNT" type="int"/>
             <column name="CATEGORY" type="varchar(255)"/>
             <column name="CREATED" type="date"/>

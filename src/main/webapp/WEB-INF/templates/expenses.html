@@ -31,7 +31,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="expense : ${expenses}">
-                    <td th:text="${expense.title}">Expense name</td>
+                    <td th:text="${expense.name}">Expense name</td>
                     <td th:text="${expense.category}">Expense category</td>
                     <td th:text="${expense.amount}">100</td>
                     <td th:text="${expense.created}">31-12-2010</td>

@@ -23,7 +23,8 @@
             <table th:if="${!#lists.isEmpty(accounts)}">
                 <thead>
                 <tr>
-                    <td th:text="#{accounts.bank}">Bank</td>
+                    <td th:text="#{common.actions}">Actions</td>
+                    <td th:text="#{accounts.bankname}">Bank</td>
                     <td th:text="#{accounts.amount}">Amount</td>
                     <td th:text="#{accounts.rate}">Rate</td>
                     <td th:text="#{accounts.expire}">Expire</td>
@@ -31,9 +32,12 @@
                 </thead>
                 <tbody>
                 <tr th:each="account : ${accounts}">
-                    <td th:text="${account.bank}">Bank name</td>
+                    <td>
+                        <a th:href="@{/accounts/delete(id=${account.id})}" th:text="#{common.delete}">Delete</a>
+                    </td>
+                    <td th:text="${account.bankname}">TCS</td>
                     <td th:text="${account.amount}">100000</td>
-                    <td th:text="${account.percent} + '%'">10%</td>
+                    <td th:text="${account.rate} + '%'">10%</td>
                     <td th:text="${account.expire}">31-12-2010</td>
                 </tr>
                 </tbody>

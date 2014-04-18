@@ -6,17 +6,17 @@ import java.util.Date;
  * @author tim
  */
 public class Account extends Entity {
-    private String bank;
+    private String bankname;
     private long amount;
-    private int percent;
+    private int rate;
     private Date expire;
 
-    public String getBank() {
-        return bank;
+    public String getBankname() {
+        return bankname;
     }
 
-    public void setBank(String bank) {
-        this.bank = bank;
+    public void setBankname(String bankname) {
+        this.bankname = bankname;
     }
 
     public long getAmount() {
@@ -27,12 +27,12 @@ public class Account extends Entity {
         this.amount = amount;
     }
 
-    public int getPercent() {
-        return percent;
+    public int getRate() {
+        return rate;
     }
 
-    public void setPercent(int percent) {
-        this.percent = percent;
+    public void setRate(int rate) {
+        this.rate = rate;
     }
 
     public Date getExpire() {
@@ -45,6 +45,6 @@ public class Account extends Entity {
 
     @Override
     public String toString() {
-        return String.format("%s, %d, %d%%, %4$td.%4$tm.%4$tY", bank, amount, percent, expire);
+        return String.format("%s, %d, %d%%, %4$td.%4$tm.%4$tY", bankname, amount, rate, expire);
     }
 }

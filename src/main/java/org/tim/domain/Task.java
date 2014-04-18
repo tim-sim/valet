@@ -6,16 +6,16 @@ import java.util.Date;
  * @author tim
  */
 public class Task extends Entity {
-    private String description;
+    private String name;
     private Date created = new Date();
     private Date estimate;
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getCreated() {
@@ -36,6 +36,6 @@ public class Task extends Entity {
 
     @Override
     public String toString() {
-        return String.format("%s, %2$td.%2$tm.%2$tY", description, estimate);
+        return String.format("%s, %2$td.%2$tm.%2$tY", name, estimate);
     }
 }

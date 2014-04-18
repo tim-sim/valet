@@ -6,17 +6,17 @@ import java.util.Date;
  * @author tim
  */
 public class Expense extends Entity {
-    private String title;
+    private String name;
     private String category;
     private long amount;
     private Date created;
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCategory() {
@@ -45,6 +45,6 @@ public class Expense extends Entity {
 
     @Override
     public String toString() {
-        return String.format("%s, %s, %d, %4$td.%4$tm.%4$tY", title, category, amount, created);
+        return String.format("%s, %s, %d, %4$td.%4$tm.%4$tY", name, category, amount, created);
     }
 }

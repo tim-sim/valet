@@ -38,17 +38,22 @@ public class EventsDAO extends EntityDAO<Event> {
                 @Override
                 public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                     PreparedStatement statement = connection.prepareStatement(
-                            "insert into EVENTS (NAME, PLACE, DATE) values (?, ?, ?)");
+                            String.format("insert into %s (%s, %s, %s) values (?, ?, ?)",
+                            TABLE_EVENTS, FIELD_NAME, FIELD_PLACE, FIELD_DATE));
                     statement.setString(1, event.getName());
                     statement.setString(2, event.getPlace());
-                    statement.setDate(3, new Date(event.getDate().getTime()));
+                    if (event.getDate() != null) {
+                        statement.setDate(3, new Date(event.getDate().getTime()));
+                    }
                     return statement;
                 }
             }, keyHolder);
             event.setId(keyHolder.getKey().longValue());
         } else {
-            jdbcTemplate.update("update EVENTS set NAME = ?, PLACE = ?, DATE = ? where ID = ?",
-                    event.getName(), event.getPlace(), event.getDate(), event.getId());
+            jdbcTemplate.update(
+                    String.format("update %s set %s = ?, %s = ?, %s = ? where %s = ?",
+                    TABLE_EVENTS, FIELD_NAME, FIELD_PLACE, FIELD_DATE, FIELD_ID),
+                event.getName(), event.getPlace(), event.getDate(), event.getId());
         }
         return event;
     }

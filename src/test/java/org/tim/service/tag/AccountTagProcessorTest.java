@@ -52,17 +52,17 @@ public class AccountTagProcessorTest extends BaseDbTest {
 
     private Account testAccount() {
         Account account = new Account();
-        account.setBank("some bank");
+        account.setBankname("some bank");
         account.setAmount(100);
-        account.setPercent(10);
+        account.setRate(10);
         account.setExpire(getDate(365));
         return account;
     }
 
     private void assertEquals(Account expected, Account actual) {
-        Assert.assertEquals(expected.getBank(), actual.getBank());
+        Assert.assertEquals(expected.getBankname(), actual.getBankname());
         Assert.assertEquals(expected.getAmount(), actual.getAmount());
-        Assert.assertEquals(expected.getPercent(), actual.getPercent());
+        Assert.assertEquals(expected.getRate(), actual.getRate());
         Assert.assertEquals(expected.getExpire(), actual.getExpire());
     }
 }

@@ -18,9 +18,9 @@ import static org.tim.util.FieldUtils.*;
 @Service
 public class AccountTagProcessor extends EntityTagProcessor<Account> {
     private static final List<FieldParser> ACCOUNT_SCHEME = Arrays.asList(
-            simpleParser(AccountsDAO.FIELD_BANK),
+            simpleParser(AccountsDAO.FIELD_BANKNAME),
             numberParser(AccountsDAO.FIELD_AMOUNT),
-            percentParser(AccountsDAO.FIELD_PERCENT),
+            percentParser(AccountsDAO.FIELD_RATE),
             dateParser(AccountsDAO.FIELD_EXPIRE)
     );
 
@@ -34,9 +34,9 @@ public class AccountTagProcessor extends EntityTagProcessor<Account> {
     @Override
     protected Account createEntity(Map<String, Object> data) {
         Account account = new Account();
-        account.setBank((String) data.get(AccountsDAO.FIELD_BANK));
+        account.setBankname((String) data.get(AccountsDAO.FIELD_BANKNAME));
         account.setAmount((long) data.get(AccountsDAO.FIELD_AMOUNT));
-        account.setPercent((int) data.get(AccountsDAO.FIELD_PERCENT));
+        account.setRate((int) data.get(AccountsDAO.FIELD_RATE));
         account.setExpire((Date) data.get(AccountsDAO.FIELD_EXPIRE));
         return account;
     }

@@ -14,7 +14,7 @@ import java.sql.*;
 @Repository
 public class TasksDAO extends EntityDAO<Task> {
     public static final String TABLE_TASKS = "TASKS";
-    public static final String FIELD_DESCRIPTION = "DESCRIPTION";
+    public static final String FIELD_NAME = "NAME";
     public static final String FIELD_CREATED = "CREATED";
     public static final String FIELD_ESTIMATE = "ESTIMATE";
 
@@ -23,7 +23,7 @@ public class TasksDAO extends EntityDAO<Task> {
         public Task mapRow(ResultSet resultSet, int i) throws SQLException {
             Task task = new Task();
             task.setId(resultSet.getLong("ID"));
-            task.setDescription(resultSet.getString(FIELD_DESCRIPTION));
+            task.setName(resultSet.getString(FIELD_NAME));
             task.setCreated(resultSet.getDate(FIELD_CREATED));
             task.setEstimate(resultSet.getDate(FIELD_ESTIMATE));
             return task;
@@ -38,17 +38,24 @@ public class TasksDAO extends EntityDAO<Task> {
                 @Override
                 public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                     PreparedStatement statement = connection.prepareStatement(
-                            "insert into TASKS (DESCRIPTION, CREATED, ESTIMATE) values (?, ?, ?)");
-                    statement.setString(1, task.getDescription());
-                    statement.setDate(2, new Date(task.getCreated().getTime()));
-                    statement.setDate(3, new Date(task.getEstimate().getTime()));
+                            String.format("insert into TASKS (NAME, CREATED, ESTIMATE) values (?, ?, ?)",
+                            TABLE_TASKS, FIELD_NAME, FIELD_CREATED, FIELD_ESTIMATE));
+                    statement.setString(1, task.getName());
+                    if (task.getCreated() != null) {
+                        statement.setDate(2, new Date(task.getCreated().getTime()));
+                    }
+                    if (task.getEstimate() != null) {
+                        statement.setDate(3, new Date(task.getEstimate().getTime()));
+                    }
                     return statement;
                 }
             }, keyHolder);
             task.setId(keyHolder.getKey().longValue());
         } else {
-            jdbcTemplate.update("update TASKS set DESCRIPTION = ?, CREATED = ?, ESTIMATE = ? where ID = ?",
-                    task.getDescription(), task.getCreated(), task.getEstimate(), task.getId());
+            jdbcTemplate.update(
+                    String.format("update TASKS set NAME = ?, CREATED = ?, ESTIMATE = ? where ID = ?",
+                    TABLE_TASKS, FIELD_NAME, FIELD_CREATED, FIELD_ESTIMATE, FIELD_ID),
+                task.getName(), task.getCreated(), task.getEstimate(), task.getId());
         }
         return task;
     }

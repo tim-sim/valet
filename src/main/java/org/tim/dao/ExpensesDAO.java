@@ -14,7 +14,7 @@ import java.sql.*;
 @Repository
 public class ExpensesDAO extends EntityDAO<Expense> {
     public static final String TABLE_EXPENSES = "EXPENSES";
-    public static final String FIELD_TITLE = "TITLE";
+    public static final String FIELD_NAME = "NAME";
     public static final String FIELD_AMOUNT = "AMOUNT";
     public static final String FIELD_CATEGORY = "CATEGORY";
     public static final String FIELD_CREATED = "CREATED";
@@ -24,7 +24,7 @@ public class ExpensesDAO extends EntityDAO<Expense> {
         public Expense mapRow(ResultSet resultSet, int i) throws SQLException {
             Expense expense = new Expense();
             expense.setId(resultSet.getLong(FIELD_ID));
-            expense.setTitle(resultSet.getString(FIELD_TITLE));
+            expense.setName(resultSet.getString(FIELD_NAME));
             expense.setCategory(resultSet.getString(FIELD_CATEGORY));
             expense.setAmount(resultSet.getLong(FIELD_AMOUNT));
             expense.setCreated(resultSet.getDate(FIELD_CREATED));
@@ -40,8 +40,9 @@ public class ExpensesDAO extends EntityDAO<Expense> {
                 @Override
                 public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                     PreparedStatement statement = connection.prepareStatement(
-                            "insert into EXPENSES (TITLE, CATEGORY, AMOUNT, CREATED) values (?, ?, ?, ?)");
-                    statement.setString(1, expense.getTitle());
+                            String.format("insert into %s (%s, %s, %s, %s) values (?, ?, ?, ?)",
+                            TABLE_EXPENSES, FIELD_NAME, FIELD_CATEGORY, FIELD_AMOUNT, FIELD_CREATED));
+                    statement.setString(1, expense.getName());
                     statement.setString(2, expense.getCategory());
                     statement.setLong(3, expense.getAmount());
                     statement.setDate(4, new Date(expense.getCreated().getTime()));
@@ -50,8 +51,10 @@ public class ExpensesDAO extends EntityDAO<Expense> {
             }, keyHolder);
             expense.setId(keyHolder.getKey().longValue());
         } else {
-            jdbcTemplate.update("update EXPENSES set TITLE = ?, CATEGORY = ?, AMOUNT = ?, CREATED = ? where ID = ?",
-                    expense.getTitle(), expense.getCategory(), expense.getAmount(), expense.getCreated(), expense.getId());
+            jdbcTemplate.update(
+                    String.format("update %s set %s = ?, %s = ?, %s = ?, %s = ? where %s = ?",
+                    TABLE_EXPENSES, FIELD_NAME, FIELD_CATEGORY, FIELD_AMOUNT, FIELD_CREATED, FIELD_ID),
+                    expense.getName(), expense.getCategory(), expense.getAmount(), expense.getCreated(), expense.getId());
         }
         return expense;
     }

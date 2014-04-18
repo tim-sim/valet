@@ -23,14 +23,14 @@
             <table th:if="${!#lists.isEmpty(tasks)}">
                 <thead>
                 <tr>
-                    <td th:text="#{tasks.description}">Description</td>
+                    <td th:text="#{tasks.name}">Description</td>
                     <td th:text="#{tasks.created}">Created</td>
                     <td th:text="#{tasks.estimate}">Estimate</td>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="task : ${tasks}">
-                    <td th:text="${task.description}">Task description</td>
+                    <td th:text="${task.name}">Task name</td>
                     <td th:text="${task.created}">01-01-2000</td>
                     <td th:text="${task.estimate}">31-12-2001</td>
                 </tr>

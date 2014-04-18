@@ -53,7 +53,7 @@ public class ExpenseTagProcessorTest extends BaseDbTest {
 
     private Expense testExpense() {
         Expense expense = new Expense();
-        expense.setTitle("some expense");
+        expense.setName("some expense");
         expense.setCategory("some category");
         expense.setAmount(100);
         expense.setCreated(getDate(0));
@@ -61,7 +61,7 @@ public class ExpenseTagProcessorTest extends BaseDbTest {
     }
 
     private void assertEquals(Expense expected, Expense actual) {
-        Assert.assertEquals(expected.getTitle(), actual.getTitle());
+        Assert.assertEquals(expected.getName(), actual.getName());
         Assert.assertEquals(expected.getCategory(), actual.getCategory());
         Assert.assertEquals(expected.getAmount(), actual.getAmount());
         Assert.assertEquals(expected.getCreated(), actual.getCreated());

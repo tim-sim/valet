@@ -21,7 +21,7 @@ import static org.tim.util.FieldUtils.*;
 public class ExpenseTagProcessor extends EntityTagProcessor<Expense> {
     private static final String TAG_EXPENSE = "expense";
     private static final List<FieldParser> EXPENSE_SCHEME = Arrays.asList(
-            simpleParser(FIELD_TITLE),
+            simpleParser(FIELD_NAME),
             simpleParser(FIELD_CATEGORY),
             numberParser(FIELD_AMOUNT),
             dateParser(FIELD_CREATED)
@@ -36,7 +36,7 @@ public class ExpenseTagProcessor extends EntityTagProcessor<Expense> {
     @Override
     protected Expense createEntity(Map<String, Object> data) {
         Expense expense = new Expense();
-        expense.setTitle((String) data.get(FIELD_TITLE));
+        expense.setName((String) data.get(FIELD_NAME));
         expense.setCategory((String) data.get(FIELD_CATEGORY));
         expense.setAmount((long) data.get(FIELD_AMOUNT));
         expense.setCreated((Date) data.get(FIELD_CREATED));
