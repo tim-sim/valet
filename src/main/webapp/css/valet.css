@@ -27,6 +27,29 @@ td {
 input {
     margin: 10px;
     padding: 5px;
+    display: inline-block;
+    outline: none;
+}
+
+input[type="button"], input[type="submit"] {
+    min-width: 50px;
+    padding: 4px 12px;
+    text-align: center;
+    cursor: pointer;
+    color: #333;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="button"]:hover, input[type="submit"]:hover {
+    color: #fff;
+    background-color: #ccc;
+}
+
+input[type="button"]:active, input[type="submit"]:active {
+    color: #fff;
+    background-color: #aaa;
 }
 
 /* Main page */
@@ -45,7 +68,12 @@ input {
 }
 
 .note {
-    margin: 15px 5px;
+    margin: 20px 5px;
+}
+
+.action-ref {
+    text-decoration: none;
+    border-bottom: 1px dotted;
 }
 
 .bordered {
@@ -70,9 +98,7 @@ input {
     margin-right: 0;
 }
 
-.add-form input {
-    display: block;
-    outline: none;
+.add-form input[type="text"] {
     width: 220px;
 }
 
@@ -83,11 +109,8 @@ input {
     margin-right: 0;
 }
 
-.notes-list input {
-    display: block;
-    outline: none;
+.notes-list input[type="text"] {
     width: 424px;
-
 }
 
 .tasks-list {

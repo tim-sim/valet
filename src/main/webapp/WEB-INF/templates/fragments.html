@@ -19,4 +19,5 @@
 <form th:fragment="addNoteForm" id="addNoteForm" action="/notes/add" method="post" accept-charset="UTF-8">
     <input id="noteTags" name="noteTags" class="bordered" type="text" th:attr="placeholder=#{notes.tags}"/>
     <input id="noteContent" name="noteContent" class="bordered" type="text" th:attr="placeholder=#{notes.content}"/>
+    <input type="submit" th:attr="value=#{common.save}"/>
 </form>
